@@ -1,8 +1,15 @@
 import styled from '@emotion/styled';
 import baclgroundImgUrl from '@/assets/images/background-1.jpeg';
+import Dock from '@/components/Dock';
+import TopBar from '@/components/TopBar';
 
 const DesktopPage = () => {
-    return <DesktopContainer></DesktopContainer>;
+    return (
+        <DesktopContainer>
+            <TopBar />
+            <Dock />
+        </DesktopContainer>
+    );
 };
 
 const DesktopContainer = styled.main`
@@ -10,6 +17,9 @@ const DesktopContainer = styled.main`
     height: 100vh;
     background-size: cover;
     background-image: url(${baclgroundImgUrl});
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 
 export default DesktopPage;
