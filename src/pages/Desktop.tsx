@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import baclgroundImgUrl from '@/assets/images/background-1.jpeg';
-import Dock from '@/components/Dock';
-import TopBar from '@/components/TopBar';
+import Dock from '@/components/Dock/Dock';
+import TopBar from '@/components/TopBar/TopBar';
 
 const DesktopPage = () => {
     return (
