@@ -2,11 +2,13 @@ import styled from '@emotion/styled';
 import baclgroundImgUrl from '@/assets/images/background-1.jpeg';
 import Dock from '@/components/Dock/Dock';
 import TopBar from '@/components/TopBar/TopBar';
+import WindowArea from '@/components/Window/WindowArea';
 
 const DesktopPage = () => {
     return (
         <DesktopContainer>
             <TopBar />
+            <WindowArea />
             <Dock />
         </DesktopContainer>
     );
