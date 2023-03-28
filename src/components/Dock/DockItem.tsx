@@ -1,8 +1,12 @@
-import { openAppsState } from '@/stores/apps-store';
+import { appID, openAppsState } from '@/stores/apps-store';
 import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
 
-const DockItem = ({ id }: { id: string }) => {
+interface DockItemProps {
+    id: appID;
+}
+
+const DockItem = ({ id }: DockItemProps) => {
     const setOpenApps = useSetRecoilState(openAppsState);
     const openApp = () => {
         setOpenApps((apps) => {

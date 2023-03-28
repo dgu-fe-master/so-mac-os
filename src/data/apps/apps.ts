@@ -13,6 +13,8 @@ import { systemPreferences } from '@/data/apps/system-preferences';
 
 export interface AppConfig {
     title: string;
+    width?: number;
+    height?: number;
 }
 
 export const apps: { [key in string]: AppConfig } = {
