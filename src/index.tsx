@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { GlobalStyle } from '@/styles/global-styles';
+import GlobalStyle from '@/styles/global';
 import DesktopPage from '@/pages/Desktop';
 import { RecoilRoot } from 'recoil';
 
