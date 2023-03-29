@@ -38,7 +38,7 @@ const finder: Record<string, MenuConfig> = {
             forceQuit: {
                 title: '강제 종료...',
                 breakAfter: true,
-                hotkey: ['⌥', '⌘', 'esc'],
+                hotkey: ['opt', 'cmd', 'esc'],
             },
             sleep: {
                 title: '잠자기',
@@ -52,11 +52,11 @@ const finder: Record<string, MenuConfig> = {
             },
             lockScreen: {
                 title: '화면 잠금',
-                hotkey: ['^', '⌘', 'Q'],
+                hotkey: ['ctrl', 'cmd', 'Q'],
             },
             logout: {
                 title: '로그아웃...',
-                hotkey: ['⇧', '⌘', 'Q'],
+                hotkey: ['shift', 'cmd', 'Q'],
             },
         },
     },
@@ -70,20 +70,20 @@ const finder: Record<string, MenuConfig> = {
             preferences: {
                 title: '설정...',
                 breakAfter: true,
-                hotkey: ['⌘', ','],
+                hotkey: ['cmd', ','],
             },
             emptyTrash: {
                 title: '휴지통 비우기...',
                 breakAfter: true,
-                hotkey: ['⇧', '⌘', 'delete'],
+                hotkey: ['shift', 'cmd', 'delete'],
             },
             hideFinder: {
                 title: 'Finder 가리기',
-                hotkey: ['⌘', 'H'],
+                hotkey: ['cmd', 'H'],
             },
             hideOthers: {
                 title: '기타 가리기',
-                hotkey: ['⌥', '⌘', 'H'],
+                hotkey: ['opt', 'cmd', 'H'],
             },
             showAll: {
                 title: '모두 보기',
@@ -92,7 +92,7 @@ const finder: Record<string, MenuConfig> = {
             },
             quitFinder: {
                 title: 'Finder 종료',
-                hotkey: ['⌘', 'Q'],
+                hotkey: ['cmd', 'Q'],
             },
         },
     },
@@ -101,15 +101,15 @@ const finder: Record<string, MenuConfig> = {
         menu: {
             newFinderWindow: {
                 title: '새로운 Finder 윈도우',
-                hotkey: ['⌘', 'N'],
+                hotkey: ['cmd', 'N'],
             },
             newFolder: {
                 title: '새로운 폴더',
-                hotkey: ['⇧', '⌘', 'N'],
+                hotkey: ['shift', 'cmd', 'N'],
             },
             newFolderWithSelection: {
                 title: '선택 항목을 포함하는 새로운 폴더',
-                hotkey: ['⌃', '⌘', 'N'],
+                hotkey: ['ctrl', 'cmd', 'N'],
                 disabled: true,
             },
             newSmartFolder: {
@@ -117,11 +117,11 @@ const finder: Record<string, MenuConfig> = {
             },
             newTab: {
                 title: '새로운 탭',
-                hotkey: ['⌘', 'T'],
+                hotkey: ['cmd', 'T'],
             },
             open: {
                 title: '열기',
-                hotkey: ['⌘', 'O'],
+                hotkey: ['cmd', 'O'],
                 disabled: true,
             },
             openWith: {
@@ -132,12 +132,12 @@ const finder: Record<string, MenuConfig> = {
             closeWindow: {
                 title: '윈도우 닫기',
                 disabled: true,
-                hotkey: ['⌘', 'W'],
+                hotkey: ['cmd', 'W'],
                 breakAfter: true,
             },
             getInfo: {
                 title: '정보 가져오기',
-                hotkey: ['⌘', 'I'],
+                hotkey: ['cmd', 'I'],
             },
             rename: {
                 title: '이름 변경',
@@ -150,22 +150,22 @@ const finder: Record<string, MenuConfig> = {
             duplicate: {
                 title: '복제',
                 disabled: true,
-                hotkey: ['⌘', 'D'],
+                hotkey: ['cmd', 'D'],
             },
             makeAlias: {
                 title: '가상본 만들기',
                 disabled: true,
-                hotkey: ['⌃', '⌘', 'A'],
+                hotkey: ['ctrl', 'cmd', 'A'],
             },
             quickLook: {
                 title: '훑어보기',
                 disabled: true,
-                hotkey: ['⌘', 'Y'],
+                hotkey: ['cmd', 'Y'],
             },
             print: {
                 title: '프린트',
                 disabled: true,
-                hotkey: ['⌘', 'P'],
+                hotkey: ['cmd', 'P'],
                 breakAfter: true,
             },
             share: {
@@ -175,23 +175,23 @@ const finder: Record<string, MenuConfig> = {
             },
             showOrigin: {
                 title: '원본 보기',
-                hotkey: ['⌘', 'R'],
+                hotkey: ['cmd', 'R'],
                 disabled: true,
             },
             addToSidebar: {
                 title: '사이드바에 추가',
-                hotkey: ['⌃', '⌘', 'T'],
+                hotkey: ['ctrl', 'cmd', 'T'],
                 disabled: true,
                 breakAfter: true,
             },
             moveToTrash: {
                 title: '휴지통으로 이동',
-                hotkey: ['⌘', 'delete'],
+                hotkey: ['cmd', 'delete'],
                 disabled: true,
             },
             eject: {
                 title: '추출',
-                hotkey: ['⌘', 'E'],
+                hotkey: ['cmd', 'E'],
                 disabled: true,
                 breakAfter: true,
             },
@@ -203,7 +203,7 @@ const finder: Record<string, MenuConfig> = {
             },
             find: {
                 title: '찾기',
-                hotkey: ['⌘', 'F'],
+                hotkey: ['cmd', 'F'],
             },
         },
     },
@@ -212,32 +212,32 @@ const finder: Record<string, MenuConfig> = {
         menu: {
             undo: {
                 title: '실행 취소',
-                hotkey: ['⌘', 'Z'],
+                hotkey: ['cmd', 'Z'],
             },
             redo: {
                 title: '실행 복귀',
                 disabled: true,
-                hotkey: ['⇧', '⌘', 'Z'],
+                hotkey: ['shift', 'cmd', 'Z'],
                 breakAfter: true,
             },
             cut: {
                 title: '오려두기',
-                hotkey: ['⌘', 'X'],
+                hotkey: ['cmd', 'X'],
                 disabled: true,
             },
             copy: {
                 title: '복사',
-                hotkey: ['⌘', 'C'],
+                hotkey: ['cmd', 'C'],
                 disabled: true,
             },
             paste: {
                 title: '붙여놓기',
-                hotkey: ['⌘', 'V'],
+                hotkey: ['cmd', 'V'],
                 disabled: true,
             },
             selectAll: {
                 title: '전체 선택',
-                hotkey: ['⌘', 'A'],
+                hotkey: ['cmd', 'A'],
                 breakAfter: true,
             },
             showClipboard: {
@@ -258,28 +258,28 @@ const finder: Record<string, MenuConfig> = {
         menu: {
             asIcons: {
                 title: '아이콘',
-                hotkey: ['⌘', '1'],
+                hotkey: ['cmd', '1'],
                 disabled: true,
             },
             asList: {
                 title: '목록',
-                hotkey: ['⌘', '2'],
+                hotkey: ['cmd', '2'],
                 disabled: true,
             },
             asColumns: {
                 title: '계층',
-                hotkey: ['⌘', '3'],
+                hotkey: ['cmd', '3'],
                 disabled: true,
             },
             asGallery: {
                 title: '갤러리',
-                hotkey: ['⌘', '4'],
+                hotkey: ['cmd', '4'],
                 disabled: true,
                 breakAfter: true,
             },
             useStacks: {
                 title: '스택 사용',
-                hotkey: ['⌃', '⌘', 'O'],
+                hotkey: ['ctrl', 'cmd', 'O'],
             },
             stackGroupingBy: {
                 title: '다음으로 스택 그룹화',
@@ -290,26 +290,26 @@ const finder: Record<string, MenuConfig> = {
                     },
                     type: {
                         title: '종류',
-                        hotkey: ['⌃', '⌘', '2'],
+                        hotkey: ['ctrl', 'cmd', '2'],
                     },
                     lastlyUsed: {
                         title: '최근 사용일',
-                        hotkey: ['⌃', '⌘', '3'],
+                        hotkey: ['ctrl', 'cmd', '3'],
                     },
                     addedDate: {
                         title: '추가된 날짜',
-                        hotkey: ['⌃', '⌘', '4'],
+                        hotkey: ['ctrl', 'cmd', '4'],
                     },
                     revisionDate: {
                         title: '수정일',
-                        hotkey: ['⌃', '⌘', '5'],
+                        hotkey: ['ctrl', 'cmd', '5'],
                     },
                     createdDate: {
                         title: '생성일',
                     },
                     tag: {
                         title: '태그',
-                        hotkey: ['⌃', '⌘', '7'],
+                        hotkey: ['ctrl', 'cmd', '7'],
                     },
                 },
             },
@@ -325,38 +325,38 @@ const finder: Record<string, MenuConfig> = {
             },
             hideSidebar: {
                 title: '사이드바 가리기',
-                hotkey: ['⌃', '⌘', 'S'],
+                hotkey: ['ctrl', 'cmd', 'S'],
                 disabled: true,
             },
             hidePreview: {
                 title: '미리보기 가리기',
-                hotkey: ['⇧', '⌘', 'P'],
+                hotkey: ['shift', 'cmd', 'P'],
                 disabled: true,
                 breakAfter: true,
             },
             hideToolbar: {
                 title: '도구 막대 가리기',
-                hotkey: ['⌥', '⌘', 'T'],
+                hotkey: ['opt', 'cmd', 'T'],
                 disabled: true,
             },
             showAllTabs: {
                 title: '모든 탭 보기',
-                hotkey: ['⇧', '⌘', '\\'],
+                hotkey: ['shift', 'cmd', '\\'],
                 disabled: true,
             },
             hideTabBar: {
                 title: '탭 막대 가리기',
-                hotkey: ['⇧', '⌘', 'T'],
+                hotkey: ['shift', 'cmd', 'T'],
                 disabled: true,
             },
             hidePathBar: {
                 title: '경로 막대 가리기',
-                hotkey: ['⌥', '⌘', 'P'],
+                hotkey: ['opt', 'cmd', 'P'],
                 disabled: true,
             },
             hideStatusBar: {
                 title: '상태 막대 가리기',
-                hotkey: ['⌘', '/'],
+                hotkey: ['cmd', '/'],
                 disabled: true,
                 breakAfter: true,
             },
@@ -370,7 +370,7 @@ const finder: Record<string, MenuConfig> = {
             },
             Views: {
                 title: '보기 옵션',
-                hotkey: ['⌘', 'J'],
+                hotkey: ['cmd', 'J'],
             },
             showViews: {
                 title: '보기 옵션 표시',
@@ -390,91 +390,91 @@ const finder: Record<string, MenuConfig> = {
             back: {
                 title: '뒤로',
                 disabled: true,
-                hotkey: ['⌘', '['],
+                hotkey: ['cmd', '['],
             },
             forward: {
                 title: '앞으로',
                 disabled: true,
-                hotkey: ['⌘', ']'],
+                hotkey: ['cmd', ']'],
             },
             enclosingFOlder: {
                 title: '상위 폴더',
-                hotkey: ['⌘', '▲'],
+                hotkey: ['cmd', '▲'],
                 breakAfter: true,
             },
             recents: {
                 title: '최근 사용',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'F'],
+                hotkey: ['shift', 'cmd', 'F'],
             },
             documents: {
                 title: '문서',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'O'],
+                hotkey: ['shift', 'cmd', 'O'],
             },
             desktop: {
                 title: '데스크탑',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'D'],
+                hotkey: ['shift', 'cmd', 'D'],
             },
             downloads: {
                 title: '다운로드',
                 icon: true,
-                hotkey: ['⌥s', '⌘', 'L'],
+                hotkey: ['opt', 'cmd', 'L'],
             },
             home: {
                 title: '홈',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'H'],
+                hotkey: ['shift', 'cmd', 'H'],
             },
             library: {
                 title: '라이브러리',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'L'],
+                hotkey: ['shift', 'cmd', 'L'],
             },
             computer: {
                 title: '컴퓨터',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'C'],
+                hotkey: ['shift', 'cmd', 'C'],
             },
             airdrop: {
                 title: 'AirDrop',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'R'],
+                hotkey: ['shift', 'cmd', 'R'],
             },
             network: {
                 title: '네트워크',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'K'],
+                hotkey: ['shift', 'cmd', 'K'],
             },
             icloudDrive: {
                 title: 'iCloud Drive',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'I'],
+                hotkey: ['shift', 'cmd', 'I'],
             },
             share: {
                 title: '공유',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'S'],
+                hotkey: ['shift', 'cmd', 'S'],
             },
             applications: {
                 title: '응용 프로그램',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'A'],
+                hotkey: ['shift', 'cmd', 'A'],
             },
             utilities: {
                 title: '유틸리티',
                 icon: true,
-                hotkey: ['⇧', '⌘', 'U'],
+                hotkey: ['shift', 'cmd', 'U'],
                 breakAfter: true,
             },
             goToFolder: {
                 title: '폴더로 이동...',
-                hotkey: ['⇧', '⌘', 'G'],
+                hotkey: ['shift', 'cmd', 'G'],
             },
             connectToServe: {
                 title: '서버에 연결...',
-                hotkey: ['⌘', 'K'],
+                hotkey: ['cmd', 'K'],
             },
         },
     },
@@ -483,7 +483,7 @@ const finder: Record<string, MenuConfig> = {
         menu: {
             minimize: {
                 title: '최소화',
-                hotkey: ['⌘', 'M'],
+                hotkey: ['cmd', 'M'],
                 disabled: true,
             },
             zoom: {
@@ -510,12 +510,12 @@ const finder: Record<string, MenuConfig> = {
             },
             showPreviousTab: {
                 title: '이전 탭 보기',
-                hotkey: ['⌃', '⇧', '⇥'],
+                hotkey: ['ctrl', 'shift', 'right-tab'],
                 disabled: true,
             },
             showNextTab: {
                 title: '다음 탭 보기',
-                hotkey: ['⌃', '⇥'],
+                hotkey: ['ctrl', 'right-tab'],
                 disabled: true,
             },
             moveTabToNewWindow: {
