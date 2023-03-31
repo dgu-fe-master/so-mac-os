@@ -19,7 +19,7 @@ const MenuItem = ({ menu, ...rest }: MenuItemProps) => {
                         {hotkey.map((key: string) => (
                             <div key={key}>
                                 {MacKeys.includes(key) ? (
-                                    <img src={require(`@/assets/icons/${key}-key.png`)} width="12" />
+                                    <img src={require(`@/assets/icons/keys/${key}-key.png`)} width="12" />
                                 ) : (
                                     key
                                 )}
@@ -30,7 +30,7 @@ const MenuItem = ({ menu, ...rest }: MenuItemProps) => {
                     <img src={RightArrowIcon} width="6" />
                 ) : null}
             </MenuItemButton>
-            {breakAfter ? <DivisionLine /> : null}
+            {breakAfter && <DivisionLine />}
         </MenuItemWrapper>
     );
 };

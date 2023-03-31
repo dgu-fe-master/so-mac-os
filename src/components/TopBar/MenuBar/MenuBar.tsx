@@ -40,7 +40,7 @@ const MenuBar = () => {
                                 topBarMenus[menuId].title
                             )}
                         </Menu>
-                        {activeMenu === menuId ? <MenuDropDown menu={topBarMenus[menuId].menu} /> : null}
+                        {activeMenu === menuId && <MenuDropDown menu={topBarMenus[menuId].menu} />}
                     </div>
                 ))}
             </MenuBarContainer>

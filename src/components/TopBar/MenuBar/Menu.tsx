@@ -34,6 +34,6 @@ const MenuWrapper = styled.button<MenuWrapperProps>`
 
     :hover,
     :focus {
-        background: ${(props) => (props.active ? 'rgba(255, 255, 255, 0.2)' : undefined)};
+        background: ${({ active }) => (active ? 'rgba(255, 255, 255, 0.2)' : undefined)};
     }
 `;
