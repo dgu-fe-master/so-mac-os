@@ -20,7 +20,14 @@ function useContextMenu<T extends HTMLElement = HTMLElement>(ref: RefObject<T>) 
             return;
         }
 
-        setCoords({ xPos: event.pageX, yPos: event.pageY });
+        let x = event.pageX;
+        let y = event.pageY;
+
+        // 윈도우 사이즈를 벗어나는 위치의 경우 좌표 수정
+        if (window.innerWidth - x < 200) x -= 200;
+        if (window.innerHeight - y < 180) y -= 180;
+
+        setCoords({ xPos: x, yPos: y });
 
         setIsVisible(true);
         return;
