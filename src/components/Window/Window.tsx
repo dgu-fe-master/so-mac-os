@@ -13,7 +13,7 @@ const Window = ({ appId }: WindowProps) => {
     const { width, height, style } = useDrag(appId);
 
     return createPortal(
-        <WindowWrapper width={width} height={height} style={style}>
+        <WindowWrapper className={`${appId}-window`} width={width} height={height} style={style}>
             <WindowControl appId={appId} />
             {/* 여기 안에서 해당하는 APP 넣기*/}
         </WindowWrapper>,
@@ -30,6 +30,7 @@ const WindowWrapper = styled.div<WindowWrapperProps>`
     height: ${({ height }) => `${height}px`};
     padding: 1em;
     position: absolute;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 
 export default Window;

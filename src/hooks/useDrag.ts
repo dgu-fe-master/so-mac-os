@@ -8,22 +8,42 @@ function useDrag(appId: appID) {
     const [diffX, setDiffX] = useState(0);
     const [diffY, setDiffY] = useState(0);
     const [isDrag, setIsDrag] = useState(false);
-    const [style, setStyle] = useState({ top, left });
+    const [style, setStyle] = useState({ top, left, zIndex: 0 });
 
     const handleDragStart = (e: MouseEvent) => {
         const eventTarget = e.target as HTMLDivElement;
         setDiffX(e.screenX - eventTarget.getBoundingClientRect().left);
         setDiffY(e.screenY - eventTarget.getBoundingClientRect().top);
         setIsDrag(true);
+
+        if (eventTarget.className.includes(`${appId}-window`)) {
+            setStyle((style) => {
+                return {
+                    ...style,
+                    zIndex: 1,
+                };
+            });
+        } else {
+            setStyle((style) => {
+                return {
+                    ...style,
+                    zIndex: 0,
+                };
+            });
+        }
     };
 
     const handleDrag = (e: MouseEvent) => {
-        if (isDrag) {
+        const eventTarget = e.target as HTMLDivElement;
+        if (isDrag && eventTarget.className.includes(`${appId}-window`)) {
             const left = e.screenX - diffX;
             const top = e.screenY - diffY;
-            setStyle({
-                left,
-                top,
+            setStyle((style) => {
+                return {
+                    ...style,
+                    left,
+                    top,
+                };
             });
         }
     };
