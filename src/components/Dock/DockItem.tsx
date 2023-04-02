@@ -8,7 +8,8 @@ interface DockItemProps {
 
 const DockItem = ({ id }: DockItemProps) => {
     const setOpenApps = useSetRecoilState(openAppsState);
-    const openApp = () => {
+
+    const handleOpenApp = () => {
         setOpenApps((apps) => {
             const copyApps = { ...apps };
             copyApps[id] = true;
@@ -16,7 +17,7 @@ const DockItem = ({ id }: DockItemProps) => {
         });
     };
 
-    return <DockIcon src={require(`@/assets/icons/${id}.png`)} alt={`${id} app icon`} onClick={openApp} />;
+    return <DockIcon src={require(`@/assets/icons/${id}.png`)} alt={`${id} app icon`} onClick={handleOpenApp} />;
 };
 
 const DockIcon = styled.img`
