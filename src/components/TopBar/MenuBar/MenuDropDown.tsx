@@ -30,4 +30,6 @@ const Dropdown = styled.ul`
     flex-direction: column;
     width: max-content;
     box-shadow: 0px 2px 5px 1px rgba(141, 140, 140, 0.4);
+    backdrop-filter: blur(15px);
+    z-index: 10000;
 `;
