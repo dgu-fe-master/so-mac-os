@@ -18,7 +18,7 @@ interface WindowControlProps {
 const WindowControl = ({ appId }: WindowControlProps) => {
     const setOpenApps = useSetRecoilState(openAppsState);
 
-    const closeApp = () => {
+    const handleCloseApp = () => {
         setOpenApps((apps) => {
             const copyApps = { ...apps };
             copyApps[appId] = false;
@@ -28,7 +28,7 @@ const WindowControl = ({ appId }: WindowControlProps) => {
 
     return (
         <WindowControlBar>
-            <RedLight onClick={closeApp} />
+            <RedLight onClick={handleCloseApp} />
             <YellowLight />
             <GreenLight />
         </WindowControlBar>
