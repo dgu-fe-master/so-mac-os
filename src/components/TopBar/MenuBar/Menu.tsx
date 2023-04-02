@@ -31,6 +31,7 @@ const MenuWrapper = styled.button<MenuWrapperProps>`
     color: white;
     border-radius: 5px;
     height: 100%;
+    background: ${({ active }) => (active ? 'rgba(255, 255, 255, 0.2)' : undefined)};
 
     :hover,
     :focus {
