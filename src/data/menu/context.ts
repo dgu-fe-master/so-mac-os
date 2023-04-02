@@ -43,4 +43,44 @@ export const contextMenu: Record<string, Record<string, MenuItemConfig>> = {
             title: '보기 옵션',
         },
     },
+    folder: {
+        open: {
+            title: '열기',
+            breakAfter: true,
+        },
+        moveToTrash: {
+            title: '휴지통으로 이동',
+            breakAfter: true,
+        },
+        getInfo: {
+            title: '정보 가져오기',
+        },
+        rename: {
+            title: '이름 변경',
+        },
+        compress: {
+            title: '압축',
+        },
+        duplicate: {
+            title: '복제',
+        },
+        makeAlias: {
+            title: '가상본 만들기',
+        },
+        quickLook: {
+            title: '훑어보기',
+            breakAfter: true,
+        },
+        copy: {
+            title: '복사',
+        },
+        share: {
+            title: '공유...',
+            breakAfter: true,
+        },
+        // colors
+        tags: {
+            title: '태그...',
+        },
+    },
 };

@@ -1,15 +1,19 @@
 import { RefObject, useEffect, useState, useCallback } from 'react';
+import { activeContextMenuStore } from '@/stores/context-menu-store';
+import { useSetRecoilState } from 'recoil';
 
 export interface Coordinate {
     xPos: number;
     yPos: number;
 }
 
-function useContextMenu<T extends HTMLElement = HTMLElement>(ref: RefObject<T>) {
+function useContextMenu<T extends HTMLElement = HTMLElement>(ref: RefObject<T>, name: string) {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [coords, setCoords] = useState<Coordinate>({ xPos: 0, yPos: 0 });
 
     const handleClick = () => setIsVisible(false);
+
+    const setActiveContextMenu = useSetRecoilState(activeContextMenuStore);
 
     const handleContextMenu = useCallback((event: MouseEvent) => {
         event.preventDefault();
@@ -30,6 +34,8 @@ function useContextMenu<T extends HTMLElement = HTMLElement>(ref: RefObject<T>) 
         setCoords({ xPos: x, yPos: y });
 
         setIsVisible(true);
+        setActiveContextMenu(name);
+
         return;
     }, []);
 
