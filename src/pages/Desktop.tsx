@@ -1,12 +1,17 @@
+import { useRef } from 'react';
 import styled from '@emotion/styled';
 import baclgroundImgUrl from '@/assets/images/background-1.jpeg';
 import Dock from '@/components/Dock/Dock';
 import TopBar from '@/components/TopBar/TopBar';
 import WindowArea from '@/components/Window/WindowArea';
+import ContextMenu from '@/components/Desktop/ContextMenu';
 
 const DesktopPage = () => {
+    const ref = useRef<HTMLElement>(null);
+
     return (
-        <DesktopContainer>
+        <DesktopContainer ref={ref}>
+            <ContextMenu outerRef={ref} />
             <TopBar />
             <WindowArea />
             <Dock />
