@@ -15,6 +15,8 @@ export interface AppConfig {
     title: string;
     width?: number;
     height?: number;
+    top?: number;
+    left?: number;
 }
 
 export const apps: { [key in string]: AppConfig } = {
