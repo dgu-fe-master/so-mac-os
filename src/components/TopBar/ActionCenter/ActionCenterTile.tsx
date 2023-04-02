@@ -1,35 +1,50 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactElement } from 'react';
 import styled from '@emotion/styled';
 import ActionCenterToggleIcon from '@/components/TopBar/ActionCenter/ActionCenterToggleIcon';
 import ActionCenterSlider from './ActionCenterSlider';
+import { ReactComponent as StageManagerIcon } from '@/assets/icons/action-center/stage-manager.svg';
+import { ReactComponent as ScreenMirroringIcon } from '@/assets/icons/action-center/screen-mirroring.svg';
 
 export interface ActionCenterTileProps extends HTMLAttributes<Omit<HTMLElement, 'title'>> {
-    grid?: [number, number];
     title: string;
     subTitle?: string;
-    type?: 'default' | 'bar';
+    type?: 'default' | 'bar' | 'topdown';
 }
 
-const ActionCenterTile = ({ title, subTitle, type = 'default', grid, ...rest }: ActionCenterTileProps) => {
-    if (type === 'default')
-        return (
-            <TileContainer {...rest}>
-                <>
-                    <ActionCenterToggleIcon name={title} />
-                    <ActionToggleLabel>
-                        <ActionToggleTitle>{title}</ActionToggleTitle>
-                        {subTitle ? <span>{subTitle}</span> : null}
-                    </ActionToggleLabel>
-                </>
-            </TileContainer>
-        );
-    else {
-        return (
-            <BarTileContainer>
-                <ActionToggleTitle>{title}</ActionToggleTitle>
-                <ActionCenterSlider type={title} />
-            </BarTileContainer>
-        );
+const ActionCenterTile = ({ title, subTitle, type = 'default', ...rest }: ActionCenterTileProps) => {
+    switch (type) {
+        case 'bar':
+            return (
+                <BarTileContainer>
+                    <ActionToggleTitle>{title}</ActionToggleTitle>
+                    <ActionCenterSlider type={title} />
+                </BarTileContainer>
+            );
+        case 'topdown': {
+            const IconByName: Record<string, ReactElement> = {
+                '화면 미러링': <ScreenMirroringIcon width="20" height="20" />,
+                '스테이지 매니저': <StageManagerIcon width="20" height="20" />,
+            };
+            return (
+                <TopDownTileContainer>
+                    {IconByName[title]}
+                    <TopDownLabel>{title}</TopDownLabel>
+                </TopDownTileContainer>
+            );
+        }
+        case 'default':
+        default:
+            return (
+                <TileContainer {...rest}>
+                    <>
+                        <ActionCenterToggleIcon name={title} />
+                        <ActionToggleLabel>
+                            <ActionToggleTitle>{title}</ActionToggleTitle>
+                            {subTitle ? <span>{subTitle}</span> : null}
+                        </ActionToggleLabel>
+                    </>
+                </TileContainer>
+            );
     }
 };
 
@@ -57,4 +72,17 @@ const BarTileContainer = styled.section`
     display: flex;
     flex-direction: column;
     gap: 5px;
+`;
+
+const TopDownTileContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+`;
+
+const TopDownLabel = styled.span`
+    font-size: 11px;
+    word-break: keep-all;
+    text-align: center;
 `;
