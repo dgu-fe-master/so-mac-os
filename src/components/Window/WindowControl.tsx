@@ -1,6 +1,15 @@
 import styled from '@emotion/styled';
 import { appID, openAppsState } from '@/stores/apps-store';
 import { useSetRecoilState } from 'recoil';
+import maxHoverImg from '@/assets/icons/max-hover.png';
+import maxNormalImg from '@/assets/icons/max-normal.png';
+import maxPressImg from '@/assets/icons/max-press.png';
+import minHoverImg from '@/assets/icons/min-hover.png';
+import minNormalImg from '@/assets/icons/min-normal.png';
+import minPressImg from '@/assets/icons/min-press.png';
+import closeHoverImg from '@/assets/icons/close-hover.png';
+import closeNormalImg from '@/assets/icons/close-normal.png';
+import closePressImg from '@/assets/icons/close-press.png';
 
 interface WindowControlProps {
     appId: appID;
@@ -9,7 +18,7 @@ interface WindowControlProps {
 const WindowControl = ({ appId }: WindowControlProps) => {
     const setOpenApps = useSetRecoilState(openAppsState);
 
-    const closeApp = () => {
+    const handleCloseApp = () => {
         setOpenApps((apps) => {
             const copyApps = { ...apps };
             copyApps[appId] = false;
@@ -19,7 +28,7 @@ const WindowControl = ({ appId }: WindowControlProps) => {
 
     return (
         <WindowControlBar>
-            <RedLight onClick={closeApp} />
+            <RedLight onClick={handleCloseApp} />
             <YellowLight />
             <GreenLight />
         </WindowControlBar>
@@ -28,31 +37,48 @@ const WindowControl = ({ appId }: WindowControlProps) => {
 
 const WindowControlBar = styled.header`
     height: 20px;
-    width: 100%;
+    width: fit-content;
     display: flex;
+    gap: 7px;
 `;
 
 const RedLight = styled.div`
-    background-color: #ff605c;
     width: 14px;
     height: 14px;
-    border-radius: 7px;
-    margin-right: 7px;
+    background-size: cover;
+    background-image: url(${closeNormalImg});
+    :hover {
+        background-image: url(${closeHoverImg});
+    }
+    :active {
+        background-image: url(${closePressImg});
+    }
 `;
 
 const YellowLight = styled.div`
-    background-color: #ffbd44;
     width: 14px;
     height: 14px;
-    border-radius: 7px;
-    margin-right: 7px;
+    background-size: cover;
+    background-image: url(${minNormalImg});
+    :hover {
+        background-image: url(${minHoverImg});
+    }
+    :active {
+        background-image: url(${minPressImg});
+    }
 `;
 
 const GreenLight = styled.div`
-    background-color: #00ca4e;
     width: 14px;
     height: 14px;
-    border-radius: 7px;
+    background-size: cover;
+    background-image: url(${maxNormalImg});
+    :hover {
+        background-image: url(${maxHoverImg});
+    }
+    :active {
+        background-image: url(${maxPressImg});
+    }
 `;
 
 export default WindowControl;
