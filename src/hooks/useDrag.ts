@@ -30,10 +30,12 @@ function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
 
     const handleDragStart = (e: MouseEvent) => {
         const eventTarget = e.target as HTMLDivElement;
-        setDiffX(e.screenX - eventTarget.getBoundingClientRect().left);
-        setDiffY(e.screenY - eventTarget.getBoundingClientRect().top);
-        setIsDrag(true);
-        handleFocusWindow();
+        if (eventTarget.id.includes(appId)) {
+            setDiffX(e.screenX - eventTarget.getBoundingClientRect().left);
+            setDiffY(e.screenY - eventTarget.getBoundingClientRect().top);
+            setIsDrag(true);
+            handleFocusWindow();
+        }
     };
 
     const handleDrag = (e: MouseEvent) => {
