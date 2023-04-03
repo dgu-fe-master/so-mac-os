@@ -25,4 +25,5 @@ export const openAppsState = atom<Record<appID, boolean>>({
 export const appsRefState = atom<RefObject<HTMLElement>[]>({
     key: 'appsRefState',
     default: [],
+    dangerouslyAllowMutability: true,
 });
