@@ -4,16 +4,18 @@ import { createPortal } from 'react-dom';
 import { AppConfig } from '@/data/apps/apps';
 import WindowControl from '@/components/Window/WindowControl';
 import useDrag from '@/hooks/useDrag';
+import { useRef } from 'react';
 
 interface WindowProps {
     appId: appID;
 }
 
 const Window = ({ appId }: WindowProps) => {
-    const { width, height, style } = useDrag(appId);
+    const windowRef = useRef<HTMLDivElement>(null);
+    const { width, height, style } = useDrag(windowRef, appId);
 
     return createPortal(
-        <WindowWrapper className={`${appId}-window`} width={width} height={height} style={style}>
+        <WindowWrapper id={`${appId}-window`} ref={windowRef} width={width} height={height} style={style}>
             <WindowControl appId={appId} />
             {/* 여기 안에서 해당하는 APP 넣기*/}
         </WindowWrapper>,
@@ -31,6 +33,7 @@ const WindowWrapper = styled.div<WindowWrapperProps>`
     padding: 1em;
     position: absolute;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 2;
 `;
 
 export default Window;
