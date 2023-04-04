@@ -4,9 +4,10 @@ import { useSetRecoilState } from 'recoil';
 
 interface DockItemProps {
     id: appID;
+    isOpenApp: boolean;
 }
 
-const DockItem = ({ id }: DockItemProps) => {
+const DockItem = ({ id, isOpenApp }: DockItemProps) => {
     const setOpenApps = useSetRecoilState(openAppsState);
     const openApp = () => {
         setOpenApps((apps) => {
@@ -16,13 +17,31 @@ const DockItem = ({ id }: DockItemProps) => {
         });
     };
 
-    return <DockIcon src={require(`@/assets/icons/${id}.png`)} alt={`${id} app icon`} onClick={openApp} />;
+    return (
+        <DockItemContainer>
+            <DockIcon src={require(`@/assets/icons/${id}.png`)} alt={`${id} app icon`} onClick={openApp} />{' '}
+            {isOpenApp && <Dot />}
+        </DockItemContainer>
+    );
 };
+
+const DockItemContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 
 const DockIcon = styled.img`
     width: 50px;
     height: 50px;
-    margin: 0.3em;
+    margin: 0.3em 0.3em 0.2em 0.3em;
+`;
+
+const Dot = styled.div`
+    width: 5px;
+    height: 5px;
+    border-radius: 3px;
+    background-color: rgba(32, 32, 32, 0.8);
 `;
 
 export default DockItem;
