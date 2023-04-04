@@ -1,5 +1,7 @@
+import DockTooltip from '@/components/Dock/DockTooltip';
 import { appID, openAppsState } from '@/stores/apps-store';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 interface DockItemProps {
@@ -9,6 +11,7 @@ interface DockItemProps {
 
 const DockItem = ({ id, isOpenApp }: DockItemProps) => {
     const setOpenApps = useSetRecoilState(openAppsState);
+    const [active, setActive] = useState(false);
 
     const handleOpenApp = () => {
         setOpenApps((apps) => ({ ...apps, [id]: true }));
@@ -16,7 +19,14 @@ const DockItem = ({ id, isOpenApp }: DockItemProps) => {
 
     return (
         <DockItemContainer>
-            <DockIcon src={require(`@/assets/icons/${id}.png`)} alt={`${id} app icon`} onClick={handleOpenApp} />{' '}
+            {active && <DockTooltip appId={id} />}
+            <DockIcon
+                src={require(`@/assets/icons/${id}.png`)}
+                alt={`${id} app icon`}
+                onClick={handleOpenApp}
+                onMouseOver={() => setActive(true)}
+                onMouseOut={() => setActive(false)}
+            />
             {isOpenApp && <Dot />}
         </DockItemContainer>
     );

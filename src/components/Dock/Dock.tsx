@@ -28,7 +28,7 @@ const DockWrapper = styled.section`
 const DockContainer = styled.div`
     display: flex;
     flex-direction: row;
-    background-color: rgba(256, 256, 256, 0.2);
+    background-color: rgba(256, 256, 256, 0.4);
     width: fit-content;
     height: 63px;
     border-radius: 20px;
