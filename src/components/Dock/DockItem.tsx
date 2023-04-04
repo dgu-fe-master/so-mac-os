@@ -1,4 +1,5 @@
 import DockTooltip from '@/components/Dock/DockTooltip';
+import useFocusWindow from '@/hooks/useFocusWindow';
 import { appID, openAppsState } from '@/stores/apps-store';
 import styled from '@emotion/styled';
 import { useState } from 'react';
@@ -11,10 +12,12 @@ interface DockItemProps {
 
 const DockItem = ({ id, isOpenApp }: DockItemProps) => {
     const setOpenApps = useSetRecoilState(openAppsState);
+    const { handleFocusWindow } = useFocusWindow();
     const [active, setActive] = useState(false);
 
-    const handleOpenApp = () => {
+    const handleClickApp = () => {
         setOpenApps((apps) => ({ ...apps, [id]: true }));
+        handleFocusWindow(id);
     };
 
     return (
@@ -23,7 +26,7 @@ const DockItem = ({ id, isOpenApp }: DockItemProps) => {
             <DockIcon
                 src={require(`@/assets/icons/${id}.png`)}
                 alt={`${id} app icon`}
-                onClick={handleOpenApp}
+                onClick={handleClickApp}
                 onMouseOver={() => setActive(true)}
                 onMouseOut={() => setActive(false)}
             />
