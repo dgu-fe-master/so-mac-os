@@ -1,4 +1,5 @@
 import { apps } from '@/data/apps/apps';
+import useFocusWindow from '@/hooks/useFocusWindow';
 import { appID, appsRefState } from '@/stores/apps-store';
 import { RefObject, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -6,27 +7,12 @@ import { useRecoilState } from 'recoil';
 function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
     const { width = 600, height = 400, top = 100, left = 100 } = apps[appId];
     const [appsRef, setAppsRef] = useRecoilState(appsRefState);
+    const { handleFocusWindow } = useFocusWindow();
 
     const [diffX, setDiffX] = useState(0);
     const [diffY, setDiffY] = useState(0);
     const [isDrag, setIsDrag] = useState(false);
     const [style, setStyle] = useState({ top, left });
-
-    const focusInWindow = (ref: RefObject<HTMLElement>) => {
-        if (ref.current) {
-            ref.current.style.zIndex = '1';
-        }
-    };
-
-    const focusOutWindow = (ref: RefObject<HTMLElement>) => {
-        if (ref.current) {
-            ref.current.style.zIndex = '0';
-        }
-    };
-
-    const handleFocusWindow = () => {
-        appsRef.forEach((appRef) => (ref === appRef ? focusInWindow(appRef) : focusOutWindow(appRef)));
-    };
 
     const handleDragStart = (e: MouseEvent) => {
         const eventTarget = e.target as HTMLDivElement;
@@ -34,7 +20,7 @@ function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
             setDiffX(e.screenX - eventTarget.getBoundingClientRect().left);
             setDiffY(e.screenY - eventTarget.getBoundingClientRect().top);
             setIsDrag(true);
-            handleFocusWindow();
+            handleFocusWindow(appId);
         }
     };
 

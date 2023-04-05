@@ -17,9 +17,10 @@ export interface AppConfig {
     height?: number;
     top?: number;
     left?: number;
+    label: string;
 }
 
-export const apps: { [key in string]: AppConfig } = {
+export const apps: Record<string, AppConfig> = {
     finder,
     calculator,
     calendar,
