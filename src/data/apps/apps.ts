@@ -20,7 +20,7 @@ export interface AppConfig {
     label: string;
 }
 
-export const apps: { [key in string]: AppConfig } = {
+export const apps: Record<string, AppConfig> = {
     finder,
     calculator,
     calendar,
