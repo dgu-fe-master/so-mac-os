@@ -15,9 +15,7 @@ const ActionCenterSlider = ({ type, style, ...rest }: ActionCenterSliderProps) =
 
     return (
         <div>
-            {type && (
-                <LeftIcon src={require(`@/assets/icons/action-center/${LeftIconNameByType[type]}.svg`)} width="12" />
-            )}
+            {type && <LeftIcon src={require(`@/assets/icons/action-center/${LeftIconNameByType[type]}.svg`)} />}
             <Slider
                 type="range"
                 min="1"
@@ -78,4 +76,5 @@ const LeftIcon = styled.img`
     z-index: 1;
     transform: translate(60%, 0);
     margin-top: 8px;
+    width: 12px;
 `;

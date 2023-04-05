@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactElement } from 'react';
 import styled from '@emotion/styled';
 import ActionCenterToggleIcon from '@/components/TopBar/ActionCenter/ActionCenterToggleIcon';
-import ActionCenterSlider from './ActionCenterSlider';
+import ActionCenterSlider from '@/components/TopBar/ActionCenter/ActionCenterSlider';
 import { ReactComponent as StageManagerIcon } from '@/assets/icons/action-center/stage-manager.svg';
 import { ReactComponent as ScreenMirroringIcon } from '@/assets/icons/action-center/screen-mirroring.svg';
 

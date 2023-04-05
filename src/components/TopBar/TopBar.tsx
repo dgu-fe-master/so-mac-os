@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import ActionCenter from './ActionCenter/ActionCenter';
-import MenuBar from './MenuBar/MenuBar';
-import TopBarTime from './TopBarTime';
+import ActionCenter from '@/components/TopBar/ActionCenter/ActionCenter';
+import MenuBar from '@/components/TopBar/MenuBar/MenuBar';
+import TopBarTime from '@/components/TopBar/TopBarTime';
 
 const TopBar = () => {
     return (

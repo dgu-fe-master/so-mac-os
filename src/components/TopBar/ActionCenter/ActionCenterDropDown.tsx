@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
-import ActionCenterTile from './ActionCenterTile';
-import ActionCenterSurface from './ActionCenterSurface';
+import ActionCenterTile from '@/components/TopBar/ActionCenter/ActionCenterTile';
+import ActionCenterSurface from '@/components/TopBar/ActionCenter/ActionCenterSurface';
 
 export type ActionCenterDropDownProps = HTMLAttributes<HTMLDivElement>;
 

@@ -8,15 +8,7 @@ const TopBarTime = () => {
 
     useInterval(() => setTime(new Date()), 2000);
 
-    const numberToKRDay = {
-        0: '일',
-        1: '월',
-        2: '화',
-        3: '수',
-        4: '목',
-        5: '금',
-        6: '토',
-    };
+    const numberToKRDay = ['일', '월', '화', '수', '목', '금', '토'] as const;
 
     return (
         <TimeButton>
