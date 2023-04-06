@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil';
 import { appID, openAppsState } from '@/stores/apps-store';
 import { DesktopIcon, desktopIconStore } from '@/stores/desktop-icon-store';
 import Window from '@/components/Window/Window';
-import WindowIcon from './WindowIcon';
-import ContextMenu from '@/components/Desktop/ContextMenu';
+import WindowIcon from '@//components/Window/WindowIcon';
+import ContextMenu from '@/components/Desktop/ContextMenu/ContextMenu';
 import { contextMenu } from '@/data/menu/context';
 
 const WindowArea = () => {

@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { MenuItemConfig } from '@/data/menu/finder';
-import MenuItem from '@/components/TopBar/MenuBar/MenuItem';
+import MenuItem from '@/components/Desktop/ContextMenu/MenuItem';
 
 export interface MenuDropDownProps extends HTMLAttributes<HTMLUListElement> {
     menu: Record<string, MenuItemConfig>;

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import FolderIcon from '@/assets/icons/default-folder.png';
 import { useRecoilState } from 'recoil';
 import { activeIconStore, DesktopIcon } from '@/stores/desktop-icon-store';
-import ContextMenu from '../Desktop/ContextMenu';
+import ContextMenu from '@/components/Desktop/ContextMenu/ContextMenu';
 import { contextMenu } from '@/data/menu/context';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 

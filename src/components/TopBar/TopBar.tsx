@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import MenuBar from './MenuBar/MenuBar';
+import MenuBar from '@/components/TopBar/MenuBar/MenuBar';
 
 const TopBar = () => {
     return (

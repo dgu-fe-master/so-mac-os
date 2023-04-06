@@ -1,7 +1,7 @@
 import { RefObject, useRef } from 'react';
 import styled from '@emotion/styled';
 import useContextMenu from '@/hooks/useContextMenu';
-import MenuItem from '../TopBar/MenuBar/MenuItem';
+import MenuItem from '@/components/Desktop/ContextMenu/MenuItem';
 import { MenuItemConfig } from '@/data/menu/finder';
 import { activeContextMenuStore } from '@/stores/context-menu-store';
 import { useRecoilValue } from 'recoil';
