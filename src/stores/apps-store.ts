@@ -1,5 +1,4 @@
 import { apps } from '@/data/apps/apps';
-import { RefObject } from 'react';
 import { atom } from 'recoil';
 
 export type appID = keyof typeof apps;
@@ -22,8 +21,12 @@ export const openAppsState = atom<Record<appID, boolean>>({
     },
 });
 
-export const appsRefState = atom<RefObject<HTMLElement>[]>({
-    key: 'appsRefState',
-    default: [],
-    dangerouslyAllowMutability: true,
+export const focusAppState = atom<appID | undefined>({
+    key: 'focusAppState',
+    default: undefined,
+});
+
+export const focusAppZIndexState = atom<number>({
+    key: 'focusAppZIndexState',
+    default: 0,
 });

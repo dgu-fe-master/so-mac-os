@@ -1,13 +1,11 @@
 import { apps } from '@/data/apps/apps';
-import useFocusWindow from '@/hooks/useFocusWindow';
-import { appID, appsRefState } from '@/stores/apps-store';
+import { appID, focusAppState } from '@/stores/apps-store';
 import { RefObject, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
-    const { width = 600, height = 400, top = 100, left = 100 } = apps[appId];
-    const [appsRef, setAppsRef] = useRecoilState(appsRefState);
-    const { handleFocusWindow } = useFocusWindow();
+    const { top = 100, left = 100 } = apps[appId];
+    const setFocusApp = useSetRecoilState(focusAppState);
 
     const [diffX, setDiffX] = useState(0);
     const [diffY, setDiffY] = useState(0);
@@ -20,7 +18,7 @@ function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
             setDiffX(e.screenX - eventTarget.getBoundingClientRect().left);
             setDiffY(e.screenY - eventTarget.getBoundingClientRect().top);
             setIsDrag(true);
-            handleFocusWindow(appId);
+            setFocusApp(appId);
         }
     };
 
@@ -40,12 +38,6 @@ function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
     };
 
     useEffect(() => {
-        if (!appsRef.includes(ref)) {
-            setAppsRef([...appsRef, ref]);
-        }
-    }, []);
-
-    useEffect(() => {
         const element = ref.current;
         if (element) {
             element.addEventListener('mousedown', handleDragStart);
@@ -58,9 +50,9 @@ function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
                 element.removeEventListener('mouseup', handleDragStop);
             };
         }
-    }, [diffX, diffY, isDrag, style, appsRef]);
+    }, [diffX, diffY, isDrag, style]);
 
-    return { width, height, style };
+    return { style };
 }
 
 export default useDrag;

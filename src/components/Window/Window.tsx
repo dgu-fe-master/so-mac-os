@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { appID } from '@/stores/apps-store';
+import { appID, focusAppState, focusAppZIndexState } from '@/stores/apps-store';
 import { createPortal } from 'react-dom';
-import { AppConfig } from '@/data/apps/apps';
+import { AppConfig, apps } from '@/data/apps/apps';
 import WindowControl from '@/components/Window/WindowControl';
 import useDrag from '@/hooks/useDrag';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 interface WindowProps {
     appId: appID;
@@ -12,10 +13,28 @@ interface WindowProps {
 
 const Window = ({ appId }: WindowProps) => {
     const windowRef = useRef<HTMLDivElement>(null);
-    const { width, height, style } = useDrag(windowRef, appId);
+    const { width = 600, height = 400 } = apps[appId];
+    const { style } = useDrag(windowRef, appId);
+    const focusApp = useRecoilValue(focusAppState);
+    const [zIndex, setZIndex] = useState(0);
+    const focusAppZIndex: number = useRecoilValue(focusAppZIndexState);
+
+    useEffect(() => {
+        if (focusApp === appId) setZIndex(focusAppZIndex);
+    }, [focusApp]);
 
     return createPortal(
-        <WindowWrapper id={`${appId}-window`} ref={windowRef} width={width} height={height} style={style}>
+        <WindowWrapper
+            id={`${appId}-window`}
+            ref={windowRef}
+            width={width}
+            height={height}
+            style={{
+                left: `${style.left}px`,
+                top: `${style.top}px`,
+                zIndex: `${zIndex}`,
+            }}
+        >
             <WindowControl appId={appId} />
             {/* 여기 안에서 해당하는 APP 넣기*/}
         </WindowWrapper>,
