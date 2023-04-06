@@ -2,9 +2,9 @@ import { useRef } from 'react';
 import styled from '@emotion/styled';
 import { topBarMenuStore, MenuID, activeMenuStore } from '@/stores/topbar-store';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import Menu from './Menu';
+import Menu from '@/components/TopBar/MenuBar/Menu';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
-import MenuDropDown from './MenuDropDown';
+import MenuDropDown from '@/components/TopBar/MenuBar/MenuDropDown';
 
 const MenuBar = () => {
     const menuBarRef = useRef<HTMLDivElement>(null);
