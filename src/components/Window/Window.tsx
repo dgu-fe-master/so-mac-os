@@ -18,10 +18,32 @@ const Window = ({ appId }: WindowProps) => {
     const focusApp = useRecoilValue(focusAppState);
     const [zIndex, setZIndex] = useState(0);
     const focusAppZIndex: number = useRecoilValue(focusAppZIndexState);
+    const [isMaxApp, setIsMaxApp] = useState(false);
 
     useEffect(() => {
         if (focusApp === appId) setZIndex(focusAppZIndex);
     }, [focusApp]);
+
+    const handleMaxmizeApp = () => {
+        if (windowRef.current) {
+            if (isMaxApp) {
+                windowRef.current.style.width = `${width}px`;
+                windowRef.current.style.height = `${height}px`;
+                windowRef.current.style.left = `${style.left}px`;
+                windowRef.current.style.top = `${style.top}px`;
+            } else {
+                windowRef.current.style.width = '100%';
+                windowRef.current.style.height = '100%';
+                windowRef.current.style.left = '0px';
+                windowRef.current.style.top = '0px';
+            }
+            setIsMaxApp(!isMaxApp);
+        }
+    };
+
+    const handleMinimizeApp = () => {
+        //todo - 창 최소화하기
+    };
 
     return createPortal(
         <WindowWrapper
@@ -35,7 +57,7 @@ const Window = ({ appId }: WindowProps) => {
                 zIndex: `${zIndex}`,
             }}
         >
-            <WindowControl appId={appId} />
+            <WindowControl appId={appId} handleMaxmizeApp={handleMaxmizeApp} handleMinimizeApp={handleMinimizeApp} />
             {/* 여기 안에서 해당하는 APP 넣기*/}
         </WindowWrapper>,
         document.body

@@ -13,9 +13,11 @@ import closePressImg from '@/assets/icons/close-press.png';
 
 interface WindowControlProps {
     appId: appID;
+    handleMaxmizeApp: () => void;
+    handleMinimizeApp: () => void;
 }
 
-const WindowControl = ({ appId }: WindowControlProps) => {
+const WindowControl = ({ appId, handleMaxmizeApp, handleMinimizeApp }: WindowControlProps) => {
     const setOpenApps = useSetRecoilState(openAppsState);
 
     const handleCloseApp = () => {
@@ -29,8 +31,8 @@ const WindowControl = ({ appId }: WindowControlProps) => {
     return (
         <WindowControlBar>
             <RedLight onClick={handleCloseApp} />
-            <YellowLight />
-            <GreenLight />
+            <YellowLight onClick={handleMinimizeApp} />
+            <GreenLight onClick={handleMaxmizeApp} />
         </WindowControlBar>
     );
 };
