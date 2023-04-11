@@ -36,7 +36,7 @@ const WindowControl = ({ appId }: WindowControlProps) => {
 };
 
 const WindowControlBar = styled.header`
-    padding: 1em;
+    padding: 1em 1em 0 1em;
     height: 20px;
     width: fit-content;
     display: flex;
