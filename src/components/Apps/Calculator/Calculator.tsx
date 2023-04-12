@@ -11,12 +11,20 @@ const Calculator = () => {
     const [isOperation, setIsOperation] = useState<boolean>(false);
     const [operation, setOperation] = useState<undefined | BinaryOperation>(undefined);
     const [result, setResult] = useState<string>('0');
+    const [fontSize, setFontSize] = useState<string>('3rem');
 
     useEffect(() => {
-        const result = isOperation && nextNumber ? nextNumber : prevNumber;
+        const result = isOperation && nextNumber ? String(nextNumber) : String(prevNumber);
         if (result === '') {
             setResult('0');
+            setFontSize(`3rem`);
         } else {
+            if (result.length > 8) {
+                const size = 0.1 * result.length;
+                setFontSize(`${3 - size}rem`);
+            } else {
+                setFontSize(`3rem`);
+            }
             setResult(result);
         }
     }, [prevNumber, nextNumber, isOperation]);
@@ -37,6 +45,9 @@ const Calculator = () => {
 
     const handleNumberClick = (e: MouseEvent) => {
         const target = e.target as HTMLButtonElement;
+        if (nextNumber.length >= 25 || prevNumber.length >= 25) {
+            return;
+        }
         if (isOperation) {
             setNextNumber((prev) => prev + target.value);
         } else {
@@ -85,7 +96,7 @@ const Calculator = () => {
     return (
         <CalculatorContainer>
             <ResultContainer>
-                <Result>{result}</Result>
+                <Result fontSize={fontSize}>{result}</Result>
             </ResultContainer>
             <ButtonContainer>
                 <button onClick={handleReset}>{'AC'}</button>
@@ -141,13 +152,18 @@ const ResultContainer = styled.div`
     padding: 0 1em;
     display: flex;
     justify-content: end;
-    align-items: center;
+    align-items: end;
 `;
 
-const Result = styled.p`
-    font-size: 3rem;
+type ResultProps = {
+    fontSize: string;
+};
+
+const Result = styled.p<ResultProps>`
+    font-size: ${({ fontSize }) => fontSize};
     font-weight: 200;
     color: white;
+    padding-bottom: 10px;
 `;
 
 const ButtonContainer = styled.div`
