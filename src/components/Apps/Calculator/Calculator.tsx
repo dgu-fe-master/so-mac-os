@@ -87,8 +87,14 @@ const Calculator = () => {
 
     const handleDecimalPointClick = () => {
         if (isOperation) {
+            if (nextNumber.includes('.')) {
+                return;
+            }
             setNextNumber((exp) => exp + '.');
         } else {
+            if (prevNumber.includes('.')) {
+                return;
+            }
             setPrevNumber((exp) => exp + '.');
         }
     };
