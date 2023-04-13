@@ -18,6 +18,7 @@ export interface AppConfig {
     top?: number;
     left?: number;
     label: string;
+    backgroundColor?: string;
 }
 
 export const apps: Record<string, AppConfig> = {

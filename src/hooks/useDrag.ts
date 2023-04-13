@@ -5,7 +5,7 @@ import { RefObject, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
-    const { width = 600, height = 400, top = 100, left = 100 } = apps[appId];
+    const { top = 100, left = 100 } = apps[appId];
     const [appsRef, setAppsRef] = useRecoilState(appsRefState);
     const { handleFocusWindow } = useFocusWindow();
 
@@ -60,7 +60,7 @@ function useDrag(ref: RefObject<HTMLElement>, appId: appID) {
         }
     }, [diffX, diffY, isDrag, style, appsRef]);
 
-    return { width, height, style };
+    return { style };
 }
 
 export default useDrag;
