@@ -23,11 +23,7 @@ const ColorTags = ({ disabled = false, ...rest }: ColorTagsProps) => {
         <ColorTagsContainer>
             {colors.map((color: ColorSet) => (
                 <TagWrapper key={color.bgColor}>
-                    <Tag
-                        disabled={disabled}
-                        style={{ backgroundColor: color.bgColor, border: `1px solid ${color.borderColor}` }}
-                        {...rest}
-                    />
+                    <Tag bgColor={color.bgColor} borderColor={color.borderColor} disabled={disabled} {...rest} />
                 </TagWrapper>
             ))}
         </ColorTagsContainer>
@@ -48,7 +44,7 @@ const TagWrapper = styled.div`
     width: 14px;
 `;
 
-const Tag = styled.button`
+const Tag = styled.button<ColorSet>`
     display: flex;
     align-items: center;
     background: inherit;
@@ -60,6 +56,8 @@ const Tag = styled.button`
     width: 13px;
     height: 13px;
     border-radius: 50px;
+    background-color: ${({ bgColor }) => bgColor};
+    border: 1px solid ${({ borderColor }) => borderColor};
 
     :hover:not(:disabled) {
         width: 15px;

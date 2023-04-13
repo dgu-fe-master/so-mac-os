@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { MenuItemConfig } from '@/data/menu/finder';
 import RightArrowIcon from '@/assets/icons/arrow-right.svg';
-import ColorTags from '@/components/TopBar/MenuBar/ColorTags';
+import ColorTags from '@/components/Desktop/ContextMenu/ColorTags';
 
 export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     menu: MenuItemConfig;
