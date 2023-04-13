@@ -8,13 +8,12 @@ type UnaryOperation = '%' | '+/-';
 const Calculator = () => {
     const [prevNumber, setPrevNumber] = useState<string>('');
     const [nextNumber, setNextNumber] = useState<string>('');
-    const [isOperation, setIsOperation] = useState<boolean>(false);
     const [operation, setOperation] = useState<undefined | BinaryOperation>(undefined);
     const [result, setResult] = useState<string>('0');
     const [fontSize, setFontSize] = useState<string>('3rem');
 
     useEffect(() => {
-        const result = isOperation && nextNumber ? String(nextNumber) : String(prevNumber);
+        const result = operation && nextNumber ? String(nextNumber) : String(prevNumber);
         if (result === '') {
             setResult('0');
             setFontSize(`3rem`);
@@ -27,11 +26,10 @@ const Calculator = () => {
             }
             setResult(result);
         }
-    }, [prevNumber, nextNumber, isOperation]);
+    }, [prevNumber, nextNumber, operation]);
 
     const handleBinaryperationClick = (operation: BinaryOperation) => {
         setOperation(operation);
-        setIsOperation(true);
     };
 
     const handleUnaryOperationClick = (operation: UnaryOperation) => {
@@ -48,7 +46,7 @@ const Calculator = () => {
         if (nextNumber.length >= 25 || prevNumber.length >= 25) {
             return;
         }
-        if (isOperation) {
+        if (operation) {
             setNextNumber((prev) => prev + target.value);
         } else {
             setPrevNumber((prev) => prev + target.value);
@@ -58,7 +56,6 @@ const Calculator = () => {
     const handleReset = () => {
         setPrevNumber('');
         setNextNumber('');
-        setIsOperation(false);
         setOperation(undefined);
     };
 
@@ -67,7 +64,6 @@ const Calculator = () => {
     };
 
     const handleEqualClick = () => {
-        setIsOperation(false);
         setNextNumber('');
         switch (operation) {
             case '÷':
@@ -86,7 +82,7 @@ const Calculator = () => {
     };
 
     const handleDecimalPointClick = () => {
-        if (isOperation) {
+        if (operation) {
             if (nextNumber.includes('.')) {
                 return;
             }
