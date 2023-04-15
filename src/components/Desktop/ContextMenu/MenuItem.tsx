@@ -9,11 +9,11 @@ export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const MenuItem = ({ menu, ...rest }: MenuItemProps) => {
-    const { title, subMenu, disabled, icon, hotkey, breakAfter } = menu;
+    const { title, subMenu, disabled, icon, hotkey, breakAfter, colorTags } = menu;
 
     return (
         <MenuItemWrapper>
-            {title === '태그...' && <ColorTags disabled={disabled} />}
+            {colorTags && <ColorTags disabled={disabled} />}
             <MenuItemButton disabled={disabled} {...rest}>
                 <span>{title}</span>
                 {hotkey ? (

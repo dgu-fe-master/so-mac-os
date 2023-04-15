@@ -35,8 +35,6 @@ function useContextMenu<T extends HTMLElement = HTMLElement>(ref: RefObject<T>, 
 
         setIsVisible(true);
         setActiveContextMenu(name);
-
-        return;
     }, []);
 
     useEffect(() => {

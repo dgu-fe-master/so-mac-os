@@ -81,6 +81,7 @@ export const contextMenu: Record<string, Record<string, MenuItemConfig>> = {
         // colors
         tags: {
             title: '태그...',
+            colorTags: true,
         },
     },
 };
