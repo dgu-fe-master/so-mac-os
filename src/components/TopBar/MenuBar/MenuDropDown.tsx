@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { MenuItemConfig } from '@/data/menu/finder';
-import MenuItem from '@/components/TopBar/MenuBar/MenuItem';
+import MenuItem from '@/components/Desktop/ContextMenu/MenuItem';
 
 export interface MenuDropDownProps extends HTMLAttributes<HTMLUListElement> {
     menu: Record<string, MenuItemConfig>;
@@ -11,9 +11,7 @@ const MenuDropDown = ({ menu, ...rest }: MenuDropDownProps) => {
     return (
         <Dropdown {...rest}>
             {Object.keys(menu).map((itemId: string) => (
-                <MenuItem key={itemId} menu={menu[itemId]}>
-                    {menu[itemId].title}
-                </MenuItem>
+                <MenuItem key={itemId} menu={menu[itemId]} />
             ))}
         </Dropdown>
     );
@@ -30,4 +28,6 @@ const Dropdown = styled.ul`
     flex-direction: column;
     width: max-content;
     box-shadow: 0px 2px 5px 1px rgba(141, 140, 140, 0.4);
+    backdrop-filter: blur(15px);
+    z-index: 10000;
 `;

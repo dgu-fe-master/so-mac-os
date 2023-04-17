@@ -2,16 +2,18 @@ import { ButtonHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { MenuItemConfig } from '@/data/menu/finder';
 import RightArrowIcon from '@/assets/icons/arrow-right.svg';
+import ColorTags from '@/components/Desktop/ContextMenu/ColorTags';
 
 export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     menu: MenuItemConfig;
 }
 
 const MenuItem = ({ menu, ...rest }: MenuItemProps) => {
-    const { title, subMenu, disabled, icon, hotkey, breakAfter } = menu;
+    const { title, subMenu, disabled, icon, hotkey, breakAfter, colorTags } = menu;
 
     return (
         <MenuItemWrapper>
+            {colorTags && <ColorTags disabled={disabled} />}
             <MenuItemButton disabled={disabled} {...rest}>
                 <span>{title}</span>
                 {hotkey ? (

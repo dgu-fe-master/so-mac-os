@@ -5,6 +5,7 @@ export interface MenuItemConfig {
     disabled?: boolean;
     icon?: boolean;
     subMenu?: Record<string, MenuItemConfig>;
+    colorTags?: boolean;
 }
 
 export interface MenuConfig {
@@ -200,6 +201,7 @@ const finder: Record<string, MenuConfig> = {
                 title: '태그...',
                 disabled: true,
                 breakAfter: true,
+                colorTags: true,
             },
             find: {
                 title: '찾기',
