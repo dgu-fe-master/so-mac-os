@@ -55,9 +55,13 @@ const Calculator = () => {
 
         const target = e.target as HTMLButtonElement;
         if (operation) {
-            setNextNumber((num) => num + target.value);
+            if (nextNumber === '0' && target.value === '0') return;
+            if (nextNumber === '0' && target.value !== '0') setNextNumber(target.value);
+            else setNextNumber((num) => num + target.value);
         } else {
-            setPrevNumber((num) => num + target.value);
+            if (prevNumber === '0' && target.value === '0') return;
+            if (prevNumber === '0' && target.value !== '0') setPrevNumber(target.value);
+            else setPrevNumber((num) => num + target.value);
         }
     };
 
@@ -88,10 +92,12 @@ const Calculator = () => {
     const handleDecimalPointClick = () => {
         if (operation) {
             if (nextNumber.includes('.')) return;
-            setNextNumber((num) => num + '.');
+            if (nextNumber === '') setNextNumber('0.');
+            else setNextNumber((num) => num + '.');
         } else {
             if (prevNumber.includes('.')) return;
-            setPrevNumber((num) => num + '.');
+            if (prevNumber === '') setPrevNumber('0.');
+            else setPrevNumber((num) => num + '.');
         }
     };
 
