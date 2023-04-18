@@ -59,10 +59,6 @@ const Calculator = () => {
         setOperation(undefined);
     };
 
-    const handleDelete = () => {
-        // todo - C 버튼 구현해야함
-    };
-
     const handleEqualClick = () => {
         setNextNumber('');
         switch (operation) {
