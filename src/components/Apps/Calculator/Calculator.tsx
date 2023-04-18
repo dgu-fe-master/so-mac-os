@@ -4,29 +4,38 @@ import { TbPlusMinus } from 'react-icons/tb';
 
 type BinaryOperation = '÷' | '+' | '-' | '×';
 type UnaryOperation = '%' | '+/-';
+const MAX_NUMBER_LENGTH = 25;
+const DEFAULT_FONT_SIZE = '3rem';
 
 const Calculator = () => {
     const [prevNumber, setPrevNumber] = useState<string>('');
     const [nextNumber, setNextNumber] = useState<string>('');
     const [operation, setOperation] = useState<undefined | BinaryOperation>(undefined);
     const [result, setResult] = useState<string>('0');
-    const [fontSize, setFontSize] = useState<string>('3rem');
+    const [fontSize, setFontSize] = useState<string>(DEFAULT_FONT_SIZE);
 
     useEffect(() => {
         const result = operation && nextNumber ? String(nextNumber) : String(prevNumber);
         if (result === '') {
-            setResult('0');
-            setFontSize(`3rem`);
-        } else {
-            if (result.length > 8) {
-                const size = 0.1 * result.length;
-                setFontSize(`${3 - size}rem`);
-            } else {
-                setFontSize(`3rem`);
-            }
-            setResult(result);
+            return initResult();
         }
+        adjustResultFontSize(result);
+        setResult(result);
     }, [prevNumber, nextNumber, operation]);
+
+    const initResult = () => {
+        setResult('0');
+        setFontSize(DEFAULT_FONT_SIZE);
+    };
+
+    const adjustResultFontSize = (result: string) => {
+        if (result.length > 8) {
+            const size = 0.1 * result.length;
+            setFontSize(`${3 - size}rem`);
+        } else {
+            setFontSize(DEFAULT_FONT_SIZE);
+        }
+    };
 
     const handleBinaryperationClick = (operation: BinaryOperation) => {
         setOperation(operation);
@@ -34,22 +43,21 @@ const Calculator = () => {
 
     const handleUnaryOperationClick = (operation: UnaryOperation) => {
         if (operation === '+/-') {
-            setPrevNumber((prev) => String(-prev));
+            setPrevNumber((num) => String(-num));
         }
         if (operation === '%') {
-            setPrevNumber((prev) => String(parseFloat(prev) / 100));
+            setPrevNumber((num) => String(parseFloat(num) / 100));
         }
     };
 
     const handleNumberClick = (e: MouseEvent) => {
+        if (nextNumber.length >= MAX_NUMBER_LENGTH || prevNumber.length >= MAX_NUMBER_LENGTH) return;
+
         const target = e.target as HTMLButtonElement;
-        if (nextNumber.length >= 25 || prevNumber.length >= 25) {
-            return;
-        }
         if (operation) {
-            setNextNumber((prev) => prev + target.value);
+            setNextNumber((num) => num + target.value);
         } else {
-            setPrevNumber((prev) => prev + target.value);
+            setPrevNumber((num) => num + target.value);
         }
     };
 
@@ -60,7 +68,6 @@ const Calculator = () => {
     };
 
     const handleEqualClick = () => {
-        setNextNumber('');
         switch (operation) {
             case '÷':
                 setPrevNumber(new Function('return ' + prevNumber + '/' + nextNumber)());
@@ -75,19 +82,16 @@ const Calculator = () => {
                 setPrevNumber(new Function('return ' + prevNumber + '*' + nextNumber)());
                 break;
         }
+        setNextNumber('');
     };
 
     const handleDecimalPointClick = () => {
         if (operation) {
-            if (nextNumber.includes('.')) {
-                return;
-            }
-            setNextNumber((exp) => exp + '.');
+            if (nextNumber.includes('.')) return;
+            setNextNumber((num) => num + '.');
         } else {
-            if (prevNumber.includes('.')) {
-                return;
-            }
-            setPrevNumber((exp) => exp + '.');
+            if (prevNumber.includes('.')) return;
+            setPrevNumber((num) => num + '.');
         }
     };
 
