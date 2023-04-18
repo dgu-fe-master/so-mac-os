@@ -4,8 +4,9 @@ import { TbPlusMinus } from 'react-icons/tb';
 
 type BinaryOperation = '÷' | '+' | '-' | '×';
 type UnaryOperation = '%' | '+/-';
-const MAX_NUMBER_LENGTH = 25;
+const MAX_NUMBER_LENGTH = 15;
 const DEFAULT_FONT_SIZE = '3rem';
+const INIFINITY = 1e12;
 
 const Calculator = () => {
     const [prevNumber, setPrevNumber] = useState<string>('');
@@ -51,14 +52,14 @@ const Calculator = () => {
     };
 
     const handleNumberClick = (e: MouseEvent) => {
-        if (nextNumber.length >= MAX_NUMBER_LENGTH || prevNumber.length >= MAX_NUMBER_LENGTH) return;
-
         const target = e.target as HTMLButtonElement;
         if (operation) {
+            if (nextNumber.length > MAX_NUMBER_LENGTH) return;
             if (nextNumber === '0' && target.value === '0') return;
             if (nextNumber === '0' && target.value !== '0') setNextNumber(target.value);
             else setNextNumber((num) => num + target.value);
         } else {
+            if (prevNumber.length > MAX_NUMBER_LENGTH) return;
             if (prevNumber === '0' && target.value === '0') return;
             if (prevNumber === '0' && target.value !== '0') setPrevNumber(target.value);
             else setPrevNumber((num) => num + target.value);
@@ -72,20 +73,23 @@ const Calculator = () => {
     };
 
     const handleEqualClick = () => {
+        let result = '';
         switch (operation) {
             case '÷':
-                setPrevNumber(new Function('return ' + prevNumber + '/' + nextNumber)());
+                result = new Function('return ' + prevNumber + '/' + nextNumber)();
                 break;
             case '+':
-                setPrevNumber(new Function('return ' + prevNumber + '+' + nextNumber)());
+                result = new Function('return ' + prevNumber + '+' + nextNumber)();
                 break;
             case '-':
-                setPrevNumber(new Function('return ' + prevNumber + '-' + nextNumber)());
+                result = new Function('return ' + prevNumber + '-' + nextNumber)();
                 break;
             case '×':
-                setPrevNumber(new Function('return ' + prevNumber + '*' + nextNumber)());
+                result = new Function('return ' + prevNumber + '*' + nextNumber)();
                 break;
         }
+        // NOTE: 1.0 + 2.0 != 0.3 이 아니기 때문에 소수점 오류 해결하기 위한 코드 !
+        setPrevNumber(String(Math.round(parseFloat(result) * INIFINITY) / INIFINITY));
         setNextNumber('');
     };
 
