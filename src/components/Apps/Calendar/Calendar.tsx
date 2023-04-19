@@ -1,14 +1,28 @@
 import { calendarAppStore } from '@/stores/calendar-store';
 import styled from '@emotion/styled';
-import { format } from 'date-fns';
-import { useState } from 'react';
+import { format, addMonths, startOfMonth } from 'date-fns';
+import { lazy, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 type CalendarView = 'day' | 'week' | 'month' | 'year';
 
+const MonthView = lazy(() => import('./View/Month/MonthView'));
+
 const Calendar = () => {
     const [view] = useState<CalendarView>('month');
     const [selectedDate, setSelectedDate] = useRecoilState(calendarAppStore);
+
+    const goPrevMonth = () => {
+        setSelectedDate(addMonths(selectedDate, -1));
+    };
+
+    const goToday = () => {
+        setSelectedDate(new Date());
+    };
+
+    const goNextMonth = () => {
+        setSelectedDate(addMonths(selectedDate, 1));
+    };
 
     return (
         <CalendarContainer>
@@ -18,12 +32,12 @@ const Calendar = () => {
                     <Month>{format(selectedDate, 'M')}월</Month>
                 </TodayYearMonth>
                 <MoveMonthContainer>
-                    <PrevMonthButton>&lt;</PrevMonthButton>
-                    <TodayButton>오늘</TodayButton>
-                    <NextMonthButton>&gt;</NextMonthButton>
+                    <PrevMonthButton onClick={goPrevMonth}>&lt;</PrevMonthButton>
+                    <TodayButton onClick={goToday}>오늘</TodayButton>
+                    <NextMonthButton onClick={goNextMonth}>&gt;</NextMonthButton>
                 </MoveMonthContainer>
             </CalendarHeader>
-            <MonthlyView></MonthlyView>
+            <MonthView />
         </CalendarContainer>
     );
 };
@@ -37,7 +51,7 @@ const CalendarHeader = styled.div`
     align-items: center;
 `;
 
-const MonthlyView = styled.div``;
+// const MonthlyView = styled.div``;
 
 const TodayYearMonth = styled.div`
     display: flex;
