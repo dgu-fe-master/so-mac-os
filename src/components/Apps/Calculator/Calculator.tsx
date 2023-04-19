@@ -4,29 +4,39 @@ import { TbPlusMinus } from 'react-icons/tb';
 
 type BinaryOperation = '÷' | '+' | '-' | '×';
 type UnaryOperation = '%' | '+/-';
+const MAX_NUMBER_LENGTH = 15;
+const DEFAULT_FONT_SIZE = '3rem';
+const INIFINITY = 1e12;
 
 const Calculator = () => {
     const [prevNumber, setPrevNumber] = useState<string>('');
     const [nextNumber, setNextNumber] = useState<string>('');
     const [operation, setOperation] = useState<undefined | BinaryOperation>(undefined);
     const [result, setResult] = useState<string>('0');
-    const [fontSize, setFontSize] = useState<string>('3rem');
+    const [fontSize, setFontSize] = useState<string>(DEFAULT_FONT_SIZE);
 
     useEffect(() => {
         const result = operation && nextNumber ? String(nextNumber) : String(prevNumber);
         if (result === '') {
-            setResult('0');
-            setFontSize(`3rem`);
-        } else {
-            if (result.length > 8) {
-                const size = 0.1 * result.length;
-                setFontSize(`${3 - size}rem`);
-            } else {
-                setFontSize(`3rem`);
-            }
-            setResult(result);
+            return initResult();
         }
+        adjustResultFontSize(result);
+        setResult(result);
     }, [prevNumber, nextNumber, operation]);
+
+    const initResult = () => {
+        setResult('0');
+        setFontSize(DEFAULT_FONT_SIZE);
+    };
+
+    const adjustResultFontSize = (result: string) => {
+        if (result.length > 8) {
+            const size = 0.1 * result.length;
+            setFontSize(`${3 - size}rem`);
+        } else {
+            setFontSize(DEFAULT_FONT_SIZE);
+        }
+    };
 
     const handleBinaryperationClick = (operation: BinaryOperation) => {
         setOperation(operation);
@@ -34,22 +44,25 @@ const Calculator = () => {
 
     const handleUnaryOperationClick = (operation: UnaryOperation) => {
         if (operation === '+/-') {
-            setPrevNumber((prev) => String(-prev));
+            setPrevNumber((num) => String(-num));
         }
         if (operation === '%') {
-            setPrevNumber((prev) => String(parseFloat(prev) / 100));
+            setPrevNumber((num) => String(parseFloat(num) / 100));
         }
     };
 
     const handleNumberClick = (e: MouseEvent) => {
         const target = e.target as HTMLButtonElement;
-        if (nextNumber.length >= 25 || prevNumber.length >= 25) {
-            return;
-        }
         if (operation) {
-            setNextNumber((prev) => prev + target.value);
+            if (nextNumber.length > MAX_NUMBER_LENGTH) return;
+            if (nextNumber === '0' && target.value === '0') return;
+            if (nextNumber === '0' && target.value !== '0') setNextNumber(target.value);
+            else setNextNumber((num) => num + target.value);
         } else {
-            setPrevNumber((prev) => prev + target.value);
+            if (prevNumber.length > MAX_NUMBER_LENGTH) return;
+            if (prevNumber === '0' && target.value === '0') return;
+            if (prevNumber === '0' && target.value !== '0') setPrevNumber(target.value);
+            else setPrevNumber((num) => num + target.value);
         }
     };
 
@@ -59,39 +72,36 @@ const Calculator = () => {
         setOperation(undefined);
     };
 
-    const handleDelete = () => {
-        // todo - C 버튼 구현해야함
-    };
-
     const handleEqualClick = () => {
-        setNextNumber('');
+        let result = '';
         switch (operation) {
             case '÷':
-                setPrevNumber(new Function('return ' + prevNumber + '/' + nextNumber)());
+                result = new Function('return ' + prevNumber + '/' + nextNumber)();
                 break;
             case '+':
-                setPrevNumber(new Function('return ' + prevNumber + '+' + nextNumber)());
+                result = new Function('return ' + prevNumber + '+' + nextNumber)();
                 break;
             case '-':
-                setPrevNumber(new Function('return ' + prevNumber + '-' + nextNumber)());
+                result = new Function('return ' + prevNumber + '-' + nextNumber)();
                 break;
             case '×':
-                setPrevNumber(new Function('return ' + prevNumber + '*' + nextNumber)());
+                result = new Function('return ' + prevNumber + '*' + nextNumber)();
                 break;
         }
+        // NOTE: 1.0 + 2.0 != 0.3 이 아니기 때문에 소수점 오류 해결하기 위한 코드 !
+        setPrevNumber(String(Math.round(parseFloat(result) * INIFINITY) / INIFINITY));
+        setNextNumber('');
     };
 
     const handleDecimalPointClick = () => {
         if (operation) {
-            if (nextNumber.includes('.')) {
-                return;
-            }
-            setNextNumber((exp) => exp + '.');
+            if (nextNumber.includes('.')) return;
+            if (nextNumber === '') setNextNumber('0.');
+            else setNextNumber((num) => num + '.');
         } else {
-            if (prevNumber.includes('.')) {
-                return;
-            }
-            setPrevNumber((exp) => exp + '.');
+            if (prevNumber.includes('.')) return;
+            if (prevNumber === '') setPrevNumber('0.');
+            else setPrevNumber((num) => num + '.');
         }
     };
 
