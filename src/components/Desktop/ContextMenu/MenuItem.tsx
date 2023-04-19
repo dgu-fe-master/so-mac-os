@@ -1,18 +1,44 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, useState, useRef, RefObject } from 'react';
 import styled from '@emotion/styled';
 import { MenuItemConfig } from '@/data/menu/finder';
 import RightArrowIcon from '@/assets/icons/arrow-right.svg';
 import ColorTags from '@/components/Desktop/ContextMenu/ColorTags';
+import MenuDropDown from '@/components/TopBar/MenuBar/MenuDropDown';
+import ContextMenu from './ContextMenu';
 
 export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     menu: MenuItemConfig;
+    menuType?: 'context' | 'topBar';
 }
 
-const MenuItem = ({ menu, ...rest }: MenuItemProps) => {
+export interface ContextMenuItemProps extends MenuItemProps {
+    outerRef: RefObject<HTMLElement>;
+    name: string;
+}
+
+const MenuItem = ({ menu, menuType = 'topBar', ...props }: MenuItemProps | ContextMenuItemProps) => {
     const { title, subMenu, disabled, icon, hotkey, breakAfter, colorTags } = menu;
+    const { outerRef, name, ...rest } = props as ContextMenuItemProps;
+    const [hover, setHover] = useState<boolean>(false);
+    const subMenuRef = useRef<HTMLLIElement>(null);
+
+    const handleOpenSubmenu = () => {
+        if (hover) return;
+        setHover(true);
+    };
+
+    const handleCloseSubmenu = () => {
+        if (!hover) return;
+        setHover(false);
+    };
 
     return (
-        <MenuItemWrapper>
+        <MenuItemWrapper
+            onClick={handleOpenSubmenu}
+            onMouseEnter={handleOpenSubmenu}
+            onMouseLeave={handleCloseSubmenu}
+            ref={subMenuRef}
+        >
             {colorTags && <ColorTags disabled={disabled} />}
             <MenuItemButton disabled={disabled} {...rest}>
                 <span>{title}</span>
@@ -33,6 +59,15 @@ const MenuItem = ({ menu, ...rest }: MenuItemProps) => {
                 ) : null}
             </MenuItemButton>
             {breakAfter && <DivisionLine />}
+            {subMenu && Object.keys(subMenu).length !== 0 && hover && (
+                <SubMenuWrapper>
+                    {menuType === 'topBar' ? (
+                        <MenuDropDown menus={subMenu} />
+                    ) : (
+                        <ContextMenu menus={subMenu} outerRef={outerRef} name={name} defaultVisible={true} />
+                    )}
+                </SubMenuWrapper>
+            )}
         </MenuItemWrapper>
     );
 };
@@ -43,6 +78,7 @@ export default MenuItem;
 
 const MenuItemWrapper = styled.li`
     font-size: 14px;
+    padding: 0 5px;
 `;
 
 const MenuItemButton = styled.button`
@@ -94,4 +130,10 @@ const HotkeyLabel = styled.div`
         justify-content: center;
         color: rgba(16, 16, 16, 0.3);
     }
+`;
+
+const SubMenuWrapper = styled.div`
+    position: absolute;
+    right: 0;
+    margin-top: -25px;
 `;

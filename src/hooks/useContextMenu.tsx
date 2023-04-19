@@ -7,11 +7,13 @@ export interface Coordinate {
     yPos: number;
 }
 
-function useContextMenu<T extends HTMLElement = HTMLElement>(ref: RefObject<T>, name: string) {
-    const [isVisible, setIsVisible] = useState<boolean>(false);
+function useContextMenu<T extends HTMLElement = HTMLElement>(ref: RefObject<T>, name: string, defaultVisible = false) {
+    const [isVisible, setIsVisible] = useState<boolean>(defaultVisible);
     const [coords, setCoords] = useState<Coordinate>({ xPos: 0, yPos: 0 });
 
-    const handleClick = () => setIsVisible(false);
+    const handleClick = () => {
+        setIsVisible(false);
+    };
 
     const setActiveContextMenu = useSetRecoilState(activeContextMenuStore);
 

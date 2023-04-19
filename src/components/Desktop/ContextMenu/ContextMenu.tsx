@@ -10,18 +10,19 @@ export interface ContextMenuProps {
     outerRef: RefObject<HTMLElement>;
     menus: Record<string, MenuItemConfig>;
     name: string;
+    defaultVisible?: boolean;
 }
 
-const ContextMenu = ({ outerRef, menus, name }: ContextMenuProps) => {
+const ContextMenu = ({ outerRef, menus, name, defaultVisible }: ContextMenuProps) => {
     const menuRef = useRef<HTMLUListElement>(null);
     const isActiveContext = useRecoilValue(activeContextMenuStore);
-    const { coords, isVisible, setIsVisible } = useContextMenu(outerRef, name);
+    const { coords, isVisible, setIsVisible } = useContextMenu(outerRef, name, defaultVisible);
     const { xPos: x, yPos: y } = coords;
 
     return isVisible && isActiveContext === name ? (
         <ContextMenuList style={{ top: y, left: x }} ref={menuRef}>
             {Object.keys(menus).map((itemId: string) => (
-                <MenuItem key={itemId} menu={menus[itemId]} style={{ minWidth: '200px' }} />
+                <MenuItem key={itemId} menu={menus[itemId]} menuType={'context'} outerRef={outerRef} name={name} />
             ))}
         </ContextMenuList>
     ) : (
@@ -35,7 +36,7 @@ const ContextMenuList = styled.ul`
     position: absolute;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 5px;
+    padding: 5px 0;
     display: flex;
     flex-direction: column;
     width: max-content;
