@@ -10,7 +10,7 @@ const MonthView = () => {
 
     return (
         <Container>
-            <DateBox />
+            <DateBox selectedDate={selectedDate} />
         </Container>
     );
 };
