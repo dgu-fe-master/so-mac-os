@@ -21,6 +21,9 @@ const Container = styled.div`
     &:nth-of-type(7) {
         color: rgb(153, 148, 146);
     }
+    &:nth-of-type(-n + 7) {
+        margin-bottom: 10px;
+    }
 `;
 
 export default WeekBox;
