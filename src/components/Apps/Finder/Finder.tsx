@@ -7,6 +7,10 @@ const Finder = () => {
     return (
         <FinderContainer>
             <Sidebar />
+            <FinderBody>
+                <TitleBar />
+                <FinderArea />
+            </FinderBody>
         </FinderContainer>
     );
 };
@@ -23,4 +27,9 @@ const FinderContainer = styled.div`
     background: none;
     pointer-events: none; // TODO: 드래그 동작되도록 고민
     border-radius: inherit;
+`;
+
+const FinderBody = styled.div`
+    width: 100%;
+    height: 100%;
 `;
