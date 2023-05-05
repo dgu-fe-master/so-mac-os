@@ -2,13 +2,22 @@ import styled from '@emotion/styled';
 import Sidebar from '@/components/Apps/Finder/Sidebar/Sidebar';
 import TitleBar from '@/components/Apps/Finder/TitleBar/TitleBar';
 import FinderArea from '@/components/Apps/Finder/FinderArea';
+import { useState } from 'react';
 
-const Finder = () => {
+export interface FinderProps {
+    location?: string;
+}
+
+const Finder = ({ location = 'recent' }: FinderProps) => {
+    const [loc, setLoc] = useState<string>(location);
+
+    const onChangeLocation = (loc: string) => setLoc(loc);
+
     return (
         <FinderContainer>
-            <Sidebar />
+            <Sidebar location={loc} onChangeLocation={onChangeLocation} />
             <FinderBody>
-                <TitleBar />
+                <TitleBar location={loc} />
                 <FinderArea />
             </FinderBody>
         </FinderContainer>

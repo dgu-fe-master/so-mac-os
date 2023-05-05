@@ -5,15 +5,20 @@ import { ReactComponent as SearchIcon } from '@/assets/icons/search.svg';
 import { ReactComponent as SharingIcon } from '@/assets/icons/sharing.svg';
 import { ReactComponent as TagIcon } from '@/assets/icons/tag.svg';
 import IconButton from '@/components/Apps/Finder/TitleBar/IconButton';
+import { finderSidebarContents } from '@/data/menu/finder-sidebar';
 
-const TitleBar = () => {
+export interface TitleBarProps {
+    location: string;
+}
+
+const TitleBar = ({ location }: TitleBarProps) => {
     return (
         <TitleBarContainer>
             <ArrowGroup>
                 <IconButton icon={<ArrowBackIcon />} disabled />
                 <IconButton icon={<ArrowForwardIcon />} disabled />
             </ArrowGroup>
-            <Title>무제 폴더</Title>
+            <Title>{finderSidebarContents['favorites'].items[location]?.title}</Title>
             <ControlGroup>
                 <IconButton icon={<SharingIcon />} disabled />
                 <IconButton icon={<TagIcon />} disabled />

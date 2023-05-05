@@ -1,17 +1,19 @@
+import { FinderItemConfig } from '@/data/menu/finder-sidebar';
 import styled from '@emotion/styled';
-import { FinderItemConfig } from '@/components/Apps/Finder/Sidebar/Sidebar';
 import { ButtonHTMLAttributes } from 'react';
 
 export interface SidebarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     item: FinderItemConfig;
+    isSelected: boolean;
 }
 
-const SidebarItem = ({ item, ...rest }: SidebarItemProps) => {
+const SidebarItem = ({ item, isSelected, ...rest }: SidebarItemProps) => {
+    const { icon, title, disabled } = item;
     return (
         <SidebarGroupItem>
-            <ItemButton disabled {...rest}>
-                {item.icon}
-                {item.title}
+            <ItemButton disabled={disabled} isSelected={isSelected} {...rest}>
+                <img src={require(`@/assets/icons/${icon}.svg`)} width="16" />
+                {title}
             </ItemButton>
         </SidebarGroupItem>
     );
@@ -22,14 +24,9 @@ export default SidebarItem;
 const SidebarGroupItem = styled.li`
     color: #454545;
     font-size: 0.9em;
-
-    :not(:last-child) {
-        margin-bottom: 12px;
-    }
 `;
 
-const ItemButton = styled.button`
-    background: inherit;
+const ItemButton = styled.button<{ isSelected: boolean }>`
     border: none;
     box-shadow: none;
     border-radius: 0;
@@ -41,36 +38,15 @@ const ItemButton = styled.button`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #49494a;
+    padding: 5px;
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+    background: ${({ isSelected }) => (isSelected ? '#cfd0d3' : 'inherit')};
 
     :disabled {
+        cursor: default;
         color: #aaabac;
-
-        svg {
-            [fill] {
-                &:not([fill='none']) {
-                    fill: #a4c7f0;
-                }
-            }
-            [stroke] {
-                &:not([stroke='none']) {
-                    stroke: #a4c7f0;
-                }
-            }
-        }
-    }
-
-    svg {
-        width: 16px;
-
-        [fill] {
-            &:not([fill='none']) {
-                fill: #0071f6;
-            }
-        }
-        [stroke] {
-            &:not([stroke='none']) {
-                stroke: #0071f6;
-            }
-        }
     }
 `;
