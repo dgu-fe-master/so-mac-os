@@ -1,29 +1,51 @@
 import { ButtonHTMLAttributes, useRef } from 'react';
 import styled from '@emotion/styled';
-import FolderIcon from '@/assets/icons/default-folder.png';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { activeIconStore, DesktopIcon } from '@/stores/desktop-icon-store';
 import ContextMenu from '@/components/Desktop/ContextMenu/ContextMenu';
 import { contextMenu } from '@/data/menu/context';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
+import useFocusWindow from '@/hooks/useFocusWindow';
+import { openAppsState } from '@/stores/apps-store';
+import FolderIcon from '@/assets/icons/default-folder.png';
+import GithubIcon from '@/assets/icons/github.png';
 
 export interface WindowIconProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
     icon: DesktopIcon;
 }
+
+const GITHUB_URL = 'https://github.com/dgu-fe-master/so-mac-os';
 
 const WindowIcon = ({ icon, ...rest }: WindowIconProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const { name, type } = icon;
 
     const [activatedIcon, setActivatedIcon] = useRecoilState(activeIconStore);
+    const { handleFocusWindow } = useFocusWindow();
+    const setOpenApps = useSetRecoilState(openAppsState);
 
     useOnClickOutside(ref, () => setActivatedIcon(null));
 
-    const IconImgByType: Record<string, string> = {
-        folder: FolderIcon,
+    const IconImgByType: Record<DesktopIcon['type'], string> = {
+        finder: FolderIcon,
+        browser: GithubIcon,
     };
 
     const onFocus = () => setActivatedIcon(icon);
+
+    const onDoubleClick = (id: DesktopIcon['type']) => {
+        switch (id) {
+            case 'browser':
+                window.open(GITHUB_URL);
+                break;
+            case 'finder':
+            default:
+                // TODO: DockItem과 로직이 같아서 앱을 여는 부분과 관련 로직 커스텀 훅으로 분리하기
+                setOpenApps((apps) => ({ ...apps, [id]: true }));
+                handleFocusWindow(id);
+                break;
+        }
+    };
 
     return (
         <div ref={ref}>
@@ -33,7 +55,7 @@ const WindowIcon = ({ icon, ...rest }: WindowIconProps) => {
                 active={activatedIcon?.name === name}
                 onClick={onFocus}
                 onContextMenu={onFocus}
-                // onDoubleClick={}
+                onDoubleClick={() => onDoubleClick(type)}
                 {...rest}
             >
                 <img src={IconImgByType[type]} width="70" height="70" />
