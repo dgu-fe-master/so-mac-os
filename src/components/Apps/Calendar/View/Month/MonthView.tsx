@@ -1,16 +1,12 @@
-import { calendarAppStore } from '@/stores/calendar-store';
 import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
 import { lazy } from 'react';
 
 const DateBox = lazy(() => import('./DateBox'));
 
 const MonthView = () => {
-    const [selectedDate] = useRecoilState(calendarAppStore);
-
     return (
         <Container>
-            <DateBox selectedDate={selectedDate} />
+            <DateBox />
         </Container>
     );
 };
