@@ -2,7 +2,10 @@ import { AppConfig } from '@/data/apps/apps';
 
 export const calendar: AppConfig = {
     title: 'calendar',
-    top: 300,
-    left: 750,
+    top: 50,
+    left: 350,
+    width: 900,
+    height: 577,
     label: '캘린더',
+    backgroundColor: 'rgba(43, 33, 30, 1)',
 };
