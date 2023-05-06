@@ -4,12 +4,12 @@ import { format, addMonths, startOfMonth } from 'date-fns';
 import { lazy, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-type CalendarView = 'day' | 'week' | 'month' | 'year';
+type CalendarViewType = 'day' | 'week' | 'month' | 'year';
 
 const MonthView = lazy(() => import('./View/Month/MonthView'));
 
 const Calendar = () => {
-    const [view] = useState<CalendarView>('month');
+    const [view] = useState<CalendarViewType>('month');
     const [selectedDate, setSelectedDate] = useRecoilState(calendarAppStore);
 
     const goPrevMonth = () => {
