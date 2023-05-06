@@ -1,18 +1,20 @@
+import { calendarAppStore } from '@/stores/calendar-store';
 import styled from '@emotion/styled';
 import { getDate, getMonth, isSameDay, isSameMonth } from 'date-fns';
+import { useRecoilState } from 'recoil';
 
 interface DayProps {
     sameMonth: boolean;
     sameDay: boolean;
 }
 
-interface Props {
+interface DayBoxProps {
     day: Date;
-    selectedDate: Date;
 }
 
-const DayBox = ({ day, selectedDate }: Props) => {
+const DayBox = ({ day }: DayBoxProps) => {
     const today = new Date();
+    const [selectedDate] = useRecoilState(calendarAppStore);
 
     const sameMonth = isSameMonth(day, selectedDate);
     const sameDay = isSameDay(day, today);

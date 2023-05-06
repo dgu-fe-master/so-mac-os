@@ -1,16 +1,14 @@
 import styled from '@emotion/styled';
-import { DAY_OF_THE_WEEK } from '../../constants';
+import { DAY_OF_THE_WEEK, MAX_DAYS } from '../../constants';
 import { lazy } from 'react';
 import { getMonth, getTime, getYear } from 'date-fns';
+import { useRecoilState } from 'recoil';
+import { calendarAppStore } from '@/stores/calendar-store';
 
 const WeekBox = lazy(() => import('./WeekBox'));
 const DayBox = lazy(() => import('./DayBox'));
 
-interface Props {
-    selectedDate: Date;
-}
-
-const monthList = (selectedDate: Date) => {
+const getMonthList = (selectedDate: Date) => {
     const thisYear = getYear(selectedDate);
     const thisMonth = getMonth(selectedDate);
 
@@ -29,14 +27,15 @@ const monthList = (selectedDate: Date) => {
         result.push(new Date(thisYear, thisMonth, i));
     }
 
-    for (let i = 1; i < 42 - (thisMonthEnd + dayOneWeek) + 1; i++) {
+    for (let i = 1; i < MAX_DAYS - (thisMonthEnd + dayOneWeek) + 1; i++) {
         result.push(new Date(thisYear, thisMonth + 1, i));
     }
     return result;
 };
 
-const DateBox = ({ selectedDate }: Props) => {
-    const days: Date[] = monthList(selectedDate);
+const DateBox = () => {
+    const [selectedDate] = useRecoilState(calendarAppStore);
+    const days: Date[] = getMonthList(selectedDate);
     return (
         <Container>
             {DAY_OF_THE_WEEK.map((week) => {
@@ -44,7 +43,7 @@ const DateBox = ({ selectedDate }: Props) => {
             })}
             {/* 전체 날짜 출력 */}
             {days.map((day) => {
-                return <DayBox key={getTime(day)} day={day} selectedDate={selectedDate} />;
+                return <DayBox key={getTime(day)} day={day} />;
             })}
         </Container>
     );
