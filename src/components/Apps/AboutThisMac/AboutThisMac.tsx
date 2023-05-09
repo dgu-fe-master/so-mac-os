@@ -88,7 +88,7 @@ const AboutThisMacBody = styled(FlexBox)`
         display: flex;
         gap: 10px;
 
-        span:first-child {
+        span:first-of-type {
             width: 70px;
             text-align: right;
         }
@@ -107,6 +107,10 @@ const AboutThisMacFooter = styled(FlexBox)`
         padding: 2px 10px;
         border-radius: 5px;
         margin-bottom: 15px;
+
+        :active {
+            background-color: #b4b5b7;
+        }
     }
 
     a {
