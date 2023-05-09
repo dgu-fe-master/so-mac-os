@@ -11,7 +11,7 @@ const MenuDropDown = ({ menus, ...rest }: MenuDropDownProps) => {
     return (
         <Dropdown {...rest}>
             {Object.keys(menus).map((itemId: string) => (
-                <MenuItem key={itemId} menu={menus[itemId]} />
+                <MenuItem key={itemId} menu={menus[itemId]} itemID={itemId} />
             ))}
         </Dropdown>
     );

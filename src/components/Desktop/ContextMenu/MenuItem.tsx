@@ -5,22 +5,26 @@ import RightArrowIcon from '@/assets/icons/arrow-right.svg';
 import ColorTags from '@/components/Desktop/ContextMenu/ColorTags';
 import MenuDropDown from '@/components/TopBar/MenuBar/MenuDropDown';
 import ContextMenu from './ContextMenu';
+import useOpenApp from '@/hooks/useOpenApp';
 
 export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     menu: MenuItemConfig;
     menuType?: 'context' | 'topBar';
+    itemID: string;
 }
 
 export interface ContextMenuItemProps extends MenuItemProps {
     outerRef: RefObject<HTMLElement>;
     name: string;
+    itemID: string;
 }
 
-const MenuItem = ({ menu, menuType = 'topBar', ...props }: MenuItemProps | ContextMenuItemProps) => {
+const MenuItem = ({ menu, menuType = 'topBar', itemID, ...props }: MenuItemProps | ContextMenuItemProps) => {
     const { title, subMenu, disabled, icon, hotkey, breakAfter, colorTags } = menu;
     const { outerRef, name, ...rest } = props as ContextMenuItemProps;
     const [hover, setHover] = useState<boolean>(false);
     const subMenuRef = useRef<HTMLLIElement>(null);
+    const { handleClickApp } = useOpenApp(itemID);
 
     const handleOpenSubmenu = () => {
         if (hover) return;
@@ -32,6 +36,13 @@ const MenuItem = ({ menu, menuType = 'topBar', ...props }: MenuItemProps | Conte
         setHover(false);
     };
 
+    const handleOpenMenu = () => {
+        switch (itemID) {
+            case 'aboutThisMac':
+                handleClickApp();
+        }
+    };
+
     return (
         <MenuItemWrapper
             onClick={handleOpenSubmenu}
@@ -40,7 +51,7 @@ const MenuItem = ({ menu, menuType = 'topBar', ...props }: MenuItemProps | Conte
             ref={subMenuRef}
         >
             {colorTags && <ColorTags disabled={disabled} />}
-            <MenuItemButton disabled={disabled} {...rest}>
+            <MenuItemButton disabled={disabled} onClick={handleOpenMenu} {...rest}>
                 <span>{title}</span>
                 {hotkey ? (
                     <HotkeyLabel>

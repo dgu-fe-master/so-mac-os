@@ -1,3 +1,4 @@
+import { aboutThisMac } from './about-this-mac';
 import { calculator } from '@/data/apps/calculator';
 import { calendar } from '@/data/apps/calendar';
 import { finder } from '@/data/apps/finder';
@@ -21,7 +22,7 @@ export interface AppConfig {
     backgroundColor?: string;
 }
 
-export const apps: Record<string, AppConfig> = {
+export const dockApps: Record<string, AppConfig> = {
     finder,
     calculator,
     calendar,
@@ -34,4 +35,9 @@ export const apps: Record<string, AppConfig> = {
     photo,
     safari,
     'system-preferences': systemPreferences,
+};
+
+export const apps: Record<string, AppConfig> = {
+    ...dockApps,
+    aboutThisMac,
 };
