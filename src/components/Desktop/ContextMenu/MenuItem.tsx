@@ -11,9 +11,10 @@ export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     menu: MenuItemConfig;
     menuType?: 'context' | 'topBar';
     itemID: string;
+    closeDropdown: () => void;
 }
 
-export interface ContextMenuItemProps extends MenuItemProps {
+export interface ContextMenuItemProps extends Omit<MenuItemProps, 'closeDropdown'> {
     outerRef: RefObject<HTMLElement>;
     name: string;
     itemID: string;
@@ -22,6 +23,7 @@ export interface ContextMenuItemProps extends MenuItemProps {
 const MenuItem = ({ menu, menuType = 'topBar', itemID, ...props }: MenuItemProps | ContextMenuItemProps) => {
     const { title, subMenu, disabled, icon, hotkey, breakAfter, colorTags } = menu;
     const { outerRef, name, ...rest } = props as ContextMenuItemProps;
+    const { closeDropdown } = props as MenuItemProps;
     const [hover, setHover] = useState<boolean>(false);
     const subMenuRef = useRef<HTMLLIElement>(null);
     const { handleClickApp } = useOpenApp(itemID);
@@ -37,6 +39,8 @@ const MenuItem = ({ menu, menuType = 'topBar', itemID, ...props }: MenuItemProps
     };
 
     const handleOpenMenu = () => {
+        closeDropdown();
+
         switch (itemID) {
             case 'aboutThisMac':
                 handleClickApp();
@@ -73,7 +77,7 @@ const MenuItem = ({ menu, menuType = 'topBar', itemID, ...props }: MenuItemProps
             {subMenu && Object.keys(subMenu).length !== 0 && hover && (
                 <SubMenuWrapper>
                     {menuType === 'topBar' ? (
-                        <MenuDropDown menus={subMenu} />
+                        <MenuDropDown menus={subMenu} closeDropdown={closeDropdown} />
                     ) : (
                         <ContextMenu menus={subMenu} outerRef={outerRef} name={name} defaultVisible={true} />
                     )}

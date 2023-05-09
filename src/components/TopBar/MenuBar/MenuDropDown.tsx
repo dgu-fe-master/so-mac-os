@@ -5,13 +5,14 @@ import MenuItem from '@/components/Desktop/ContextMenu/MenuItem';
 
 export interface MenuDropDownProps extends HTMLAttributes<HTMLUListElement> {
     menus: Record<string, MenuItemConfig>;
+    closeDropdown: () => void;
 }
 
-const MenuDropDown = ({ menus, ...rest }: MenuDropDownProps) => {
+const MenuDropDown = ({ menus, closeDropdown, ...rest }: MenuDropDownProps) => {
     return (
         <Dropdown {...rest}>
             {Object.keys(menus).map((itemId: string) => (
-                <MenuItem key={itemId} menu={menus[itemId]} itemID={itemId} />
+                <MenuItem key={itemId} menu={menus[itemId]} itemID={itemId} closeDropdown={closeDropdown} />
             ))}
         </Dropdown>
     );
