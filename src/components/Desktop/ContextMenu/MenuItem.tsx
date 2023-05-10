@@ -6,18 +6,18 @@ import ColorTags from '@/components/Desktop/ContextMenu/ColorTags';
 import MenuDropDown from '@/components/TopBar/MenuBar/MenuDropDown';
 import ContextMenu from './ContextMenu';
 import useOpenApp from '@/hooks/useOpenApp';
+import { appID } from '@/stores/apps-store';
 
 export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     menu: MenuItemConfig;
     menuType?: 'context' | 'topBar';
-    itemID: string;
+    itemID: appID;
     closeDropdown: () => void;
 }
 
 export interface ContextMenuItemProps extends Omit<MenuItemProps, 'closeDropdown'> {
     outerRef: RefObject<HTMLElement>;
     name: string;
-    itemID: string;
 }
 
 const MenuItem = ({ menu, menuType = 'topBar', itemID, ...props }: MenuItemProps | ContextMenuItemProps) => {

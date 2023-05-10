@@ -1,21 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
-// TODO: 위치 수정
-const aboutThisMacInfo = {
-    title: 'MacBook Pro',
-    specification: '13-inch, M1, 2020',
-    chip: 'Apple M1',
-    memory: '16GB',
-    serialNumber: 'X1XXXX010X10X',
-    macOS: 'Ventura 13.1',
-};
+import { aboutThisMacInfo } from '@/data/utils/mac';
 
 const AboutThisMac = () => {
     const { title, specification, chip, memory, serialNumber, macOS } = aboutThisMacInfo;
     return (
         <Container>
-            <img src={require('@/assets/images/macbook.png')} width="180" />
+            <img src={require('@/assets/images/macbook.png')} width="180" alt="MacBook Pro" />
             <AboutThisMacHeader>
                 <h1>{title}</h1>
                 <span>{specification}</span>
