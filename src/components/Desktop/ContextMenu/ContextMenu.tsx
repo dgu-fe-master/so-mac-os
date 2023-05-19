@@ -22,7 +22,14 @@ const ContextMenu = ({ outerRef, menus, name, defaultVisible }: ContextMenuProps
     return isVisible && isActiveContext === name ? (
         <ContextMenuList style={{ top: y, left: x }} ref={menuRef}>
             {Object.keys(menus).map((itemId: string) => (
-                <MenuItem key={itemId} menu={menus[itemId]} menuType={'context'} outerRef={outerRef} name={name} />
+                <MenuItem
+                    key={itemId}
+                    menu={menus[itemId]}
+                    menuType={'context'}
+                    outerRef={outerRef}
+                    name={name}
+                    itemID={itemId}
+                />
             ))}
         </ContextMenuList>
     ) : (
