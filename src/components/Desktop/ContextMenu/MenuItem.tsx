@@ -26,7 +26,7 @@ const MenuItem = ({ menu, menuType = 'topBar', itemID, ...props }: MenuItemProps
     const { closeDropdown } = props as MenuItemProps;
     const [hover, setHover] = useState<boolean>(false);
     const subMenuRef = useRef<HTMLLIElement>(null);
-    const { handleClickApp } = useOpenApp(itemID);
+    const { handleClickApp } = useOpenApp();
 
     const handleOpenSubmenu = () => {
         if (hover) return;
@@ -43,7 +43,7 @@ const MenuItem = ({ menu, menuType = 'topBar', itemID, ...props }: MenuItemProps
 
         switch (itemID) {
             case 'aboutThisMac':
-                handleClickApp();
+                handleClickApp(itemID);
         }
     };
 
