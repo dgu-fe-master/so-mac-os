@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { apps } from '@/data/apps/apps';
+import { dockApps } from '@/data/apps/apps';
 import DockItem from '@/components/Dock/DockItem';
 import { useRecoilValue } from 'recoil';
 import { openAppsState } from '@/stores/apps-store';
@@ -9,7 +9,7 @@ const Dock = () => {
     return (
         <DockWrapper>
             <DockContainer>
-                {Object.keys(apps).map((app) => (
+                {Object.keys(dockApps).map((app) => (
                     <DockItem key={app} id={app} isOpenApp={openApps[app]} />
                 ))}
             </DockContainer>

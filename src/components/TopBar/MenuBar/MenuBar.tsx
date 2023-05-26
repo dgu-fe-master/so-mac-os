@@ -40,7 +40,9 @@ const MenuBar = () => {
                                 topBarMenus[menuId].title
                             )}
                         </Menu>
-                        {activeMenu === menuId && <MenuDropDown menus={topBarMenus[menuId].menu} />}
+                        {activeMenu === menuId && (
+                            <MenuDropDown menus={topBarMenus[menuId].menu} closeDropdown={handleMenuFocusOut} />
+                        )}
                     </div>
                 ))}
             </MenuBarContainer>
