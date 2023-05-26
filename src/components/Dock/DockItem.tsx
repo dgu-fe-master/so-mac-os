@@ -10,7 +10,7 @@ interface DockItemProps {
 }
 
 const DockItem = ({ id, isOpenApp }: DockItemProps) => {
-    const { handleClickApp } = useOpenApp(id);
+    const { handleClickApp } = useOpenApp();
     const [active, setActive] = useState(false);
 
     return (
@@ -19,7 +19,7 @@ const DockItem = ({ id, isOpenApp }: DockItemProps) => {
             <DockIcon
                 src={require(`@/assets/icons/${id}.png`)}
                 alt={`${id} app icon`}
-                onClick={handleClickApp}
+                onClick={() => handleClickApp(id)}
                 onMouseOver={() => setActive(true)}
                 onMouseOut={() => setActive(false)}
             />

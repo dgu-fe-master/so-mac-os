@@ -1,14 +1,14 @@
 import { ButtonHTMLAttributes, useRef } from 'react';
 import styled from '@emotion/styled';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { activeIconStore, DesktopIcon } from '@/stores/desktop-icon-store';
 import ContextMenu from '@/components/Desktop/ContextMenu/ContextMenu';
 import { contextMenu } from '@/data/menu/context';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import useFocusWindow from '@/hooks/useFocusWindow';
-import { openAppsState } from '@/stores/apps-store';
 import FolderIcon from '@/assets/icons/default-folder.png';
 import GithubIcon from '@/assets/icons/github.png';
+import useOpenApp from '@/hooks/useOpenApp';
 
 export interface WindowIconProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
     icon: DesktopIcon;
@@ -22,7 +22,7 @@ const WindowIcon = ({ icon, ...rest }: WindowIconProps) => {
 
     const [activatedIcon, setActivatedIcon] = useRecoilState(activeIconStore);
     const { handleFocusWindow } = useFocusWindow();
-    const setOpenApps = useSetRecoilState(openAppsState);
+    const { handleClickApp } = useOpenApp();
 
     useOnClickOutside(ref, () => setActivatedIcon(null));
 
@@ -41,8 +41,7 @@ const WindowIcon = ({ icon, ...rest }: WindowIconProps) => {
             case 'finder':
             default:
                 // TODO: DockItem과 로직이 같아서 앱을 여는 부분과 관련 로직 커스텀 훅으로 분리하기
-                setOpenApps((apps) => ({ ...apps, [id]: true }));
-                handleFocusWindow(id);
+                handleClickApp(id);
                 break;
         }
     };
